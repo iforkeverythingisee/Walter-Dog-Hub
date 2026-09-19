@@ -2,52 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Launcher</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #090a0f;
-      font-family: Arial, sans-serif;
-    }
-    .open-btn {
-      padding: 16px 36px;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: #ffffff;
-      background: #6366f1;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-      transition: transform 0.2s, background 0.2s;
-    }
-    .open-btn:hover {
-      background: #4f46e5;
-      transform: translateY(-2px);
-    }
-  </style>
-</head>
-<body>
-
-  <button class="open-btn" onclick="openSite()">Open</button>
-
-  <script>
-    function openSite() {
-      const win = window.open('about:blank', '_blank');
-      if (!win) {
-        alert('Pop-up blocked! Please enable pop-ups in your browser.');
-        return;
-      }
-
-      const portalContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Walter Dog's Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -718,19 +672,10 @@
     }
 
     handleTypewriter();
-  <\/script>
-
-  <!-- EXTERNAL SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"><\/script>
-  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js"><\/script>
-</body>
-</html>`;
-
-      win.document.open();
-      win.document.write(portalContent);
-      win.document.close();
-    }
   </script>
 
+  <!-- EXTERNAL SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js"></script>
 </body>
 </html>
