@@ -1,1 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #090a0f;
+      font-family: Arial, sans-serif;
+    }
+    .open-btn {
+      padding: 16px 36px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #ffffff;
+      background: #6366f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .open-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
 
+  <button class="open-btn" onclick="openSite()">Open</button>
+
+  <script>
+    function openSite() {
+      const win = window.open('about:blank', '_blank');
+      if (!win) {
+        alert('Pop-up blocked! Please enable pop-ups in your browser.');
+        return;
+      }
+
+      const portalContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walter Dog's Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent-color: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --bg-gradient: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-gradient);
+      color: #ffffff;
+      overflow-x: hidden;
+      transition: background 0.4s ease;
+    }
+
+    /* --- HIGH DENSITY PARALLAX STAR BACKGROUND --- */
+    .star-layer { position: fixed; top: 0; left: 0; width: 100%; height: 200%; pointer-events: none; z-index: 1; transition: opacity 0.5s ease; }
+    
+    #stars {
+      width: 1px; height: 1px; background: transparent;
+      box-shadow: 
+        100px 100px #FFF, 200px 300px #FFF, 350px 150px #FFF, 450px 100px #FFF, 550px 400px #FFF,
+        650px 250px #FFF, 750px 50px #FFF, 800px 400px #FFF, 900px 200px #FFF, 1000px 500px #FFF,
+        1100px 150px #FFF, 1200px 200px #FFF, 1300px 450px #FFF, 1400px 100px #FFF, 1500px 300px #FFF,
+        150px 600px #FFF, 300px 700px #FFF, 480px 850px #FFF, 620px 650px #FFF, 780px 750px #FFF,
+        950px 850px #FFF, 1050px 650px #FFF, 1220px 800px #FFF, 1400px 600px #FFF, 1550px 750px #FFF,
+        100px 900px #FFF, 250px 1100px #FFF, 400px 1000px #FFF, 580px 1250px #FFF, 720px 1050px #FFF,
+        880px 1150px #FFF, 1020px 980px #FFF, 1180px 1100px #FFF, 1350px 1200px #FFF, 1500px 950px #FFF,
+        80px 1400px #FFF, 220px 1550px #FFF, 380px 1350px #FFF, 520px 1600px #FFF, 680px 1450px #FFF,
+        840px 1500px #FFF, 990px 1380px #FFF, 1150px 1650px #FFF, 1300px 1420px #FFF, 1480px 1580px #FFF;
+      animation: animStar 50s linear infinite;
+    }
+    
+    #stars2 {
+      width: 2px; height: 2px; background: transparent;
+      box-shadow: 
+        120px 180px #FFF, 280px 80px #FFF, 420px 320px #FFF, 650px 200px #FFF, 820px 120px #FFF,
+        900px 500px #FFF, 1120px 280px #FFF, 1300px 300px #FFF, 1450px 180px #FFF, 1600px 420px #FFF,
+        200px 400px #FFF, 350px 620px #FFF, 510px 480px #FFF, 730px 680px #FFF, 890px 580px #FFF,
+        1050px 950px #FFF, 1240px 720px #FFF, 1380px 880px #FFF, 1500px 700px #FFF, 1650px 610px #FFF,
+        180px 920px #FFF, 310px 1150px #FFF, 490px 1020px #FFF, 670px 1280px #FFF, 830px 1110px #FFF,
+        980px 1220px #FFF, 1160px 1050px #FFF, 1320px 1290px #FFF, 1470px 1120px #FFF, 1620px 1250px #FFF;
+      animation: animStar 100s linear infinite;
+    }
+
+    #stars3 {
+      width: 3px; height: 3px; background: transparent;
+      box-shadow: 
+        90px 250px #FFF, 310px 120px #FFF, 540px 380px #FFF, 780px 150px #FFF, 960px 410px #FFF,
+        1180px 220px #FFF, 1390px 350px #FFF, 1580px 190px #FFF, 240px 750px #FFF, 480px 620px #FFF,
+        690px 810px #FFF, 870px 690px #FFF, 1110px 840px #FFF, 1330px 670px #FFF, 1520px 780px #FFF;
+      animation: animStar 150s linear infinite;
+    }
+
+    @keyframes animStar { from { transform: translateY(0px); } to { transform: translateY(-1000px); } }
+
+    /* --- MAIN CONTAINER --- */
+    .main-content {
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* --- HOME SECTION --- */
+    .home-section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .site-title {
+      font-weight: 200;
+      font-size: 3.5rem;
+      letter-spacing: 16px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 15px;
+      text-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* --- TYPEWRITER CONTAINER --- */
+    .typewriter-box {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 35px;
+      min-height: 1.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      background-color: var(--accent-color);
+      margin-left: 4px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* --- GLASS NAV BAR --- */
+    .glass-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50px;
+      padding: 8px 16px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .nav-item {
+      background: none;
+      border: 1px solid transparent;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: #ffffff;
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* --- GLASS TIME BOX --- */
+    .glass-time-box {
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50px;
+      padding: 10px 24px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+    }
+
+    /* --- GAMES & MOVIES SECTION --- */
+    .games-section, .movies-section {
+      width: 100%;
+      max-width: 1200px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+    }
+
+    .movie-counter {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .go-home-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .go-home-btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 450px;
+      padding: 15px 20px;
+      font-family: 'Montserrat', sans-serif;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      color: #fff;
+      outline: none;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .reload-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Montserrat';
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.75rem;
+      margin-bottom: 30px;
+      transition: 0.3s;
+    }
+
+    .reload-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-color); }
+
+    /* --- SETTINGS SECTION --- */
+    .settings-section {
+      width: 100%;
+      max-width: 600px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+    }
+
+    .settings-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .settings-title {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 15px;
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .setting-label {
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+    }
+
+    .color-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .color-swatch {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.15);
+    }
+
+    .color-swatch.active {
+      border-color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .density-btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .density-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 12px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .density-btn:hover, .density-btn.active {
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* --- INJECTED GAME & MOVIE STYLING --- */
+    #sections-container, #movies-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .letter-section { margin-bottom: 50px; padding: 0 10px; width: 100%; }
+    .letter-section.empty { opacity: 0.4; }
+    .letter-header {
+      color: white; font-size: 28px; font-weight: 200; margin-bottom: 20px;
+      padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.15);
+      text-transform: uppercase; letter-spacing: 4px; text-align: left;
+    }
+
+    .buttons-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; width: 100%; }
+    .empty-message { color: rgba(255,255,255,0.5); font-style: italic; font-weight: 300; }
+
+    input[type="button"], .movie-btn {
+      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 20px 15px; font-size: 0.85rem; font-family: 'Montserrat', sans-serif;
+      font-weight: 300; letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 12px; cursor: pointer; transition: all 0.3s ease;
+      color: white; text-align: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    input[type="button"]:hover, .movie-btn:hover {
+      transform: translateY(-4px); background: var(--accent-glow);
+      border-color: var(--accent-color); box-shadow: 0 8px 20px var(--accent-glow);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STARS BACKGROUND -->
+  <div id="stars" class="star-layer"></div>
+  <div id="stars2" class="star-layer"></div>
+  <div id="stars3" class="star-layer"></div>
+
+  <!-- HIDDEN SIDEBAR (Kept hidden so external JS does not error) -->
+  <div id="sidebar" style="display: none;"></div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-content">
+
+    <!-- HOME TAB -->
+    <section class="home-section" id="homeSection">
+      <h1 class="site-title">Walter Dog's Hub</h1>
+
+      <!-- TYPEWRITER TEXT -->
+      <div class="typewriter-box">
+        <span id="typewriterText"></span><span class="cursor">&nbsp;</span>
+      </div>
+
+      <!-- GLASS NAV BAR -->
+      <nav class="glass-nav">
+        <button class="nav-item active" id="navHome" onclick="switchTab('home')">Home</button>
+        <button class="nav-item" id="navGames" onclick="switchTab('games')">Games</button>
+        <button class="nav-item" id="navMovies" onclick="switchTab('movies')">Movies</button>
+        <button class="nav-item" id="navSettings" onclick="switchTab('settings')">Settings</button>
+      </nav>
+
+      <!-- GLASS TIME & DATE BOX -->
+      <div class="glass-time-box" id="timeBox">Loading time...</div>
+    </section>
+
+    <!-- GAMES TAB -->
+    <section class="games-section" id="gamesSection">
+      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+
+      <!-- SEARCH INPUT -->
+      <input type="text" placeholder="SEARCH GAMES..." id="searchInput" class="search-input">
+
+      <button id="lolbutton" class="reload-btn" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@latest/game.js';document.body.appendChild(script);">Click to load if it isn't loading</button>
+
+      <!-- TARGET FOR GAME INJECTION -->
+      <div id="sections-container"></div>
+    </section>
+
+    <!-- MOVIES TAB -->
+    <section class="movies-section" id="moviesSection">
+      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+
+      <!-- MOVIE COUNTER -->
+      <div class="movie-counter" id="movieCounter">Loaded Movies: 0</div>
+
+      <!-- SEARCH INPUT -->
+      <input type="text" placeholder="SEARCH MOVIES..." id="movieSearchInput" class="search-input" oninput="filterMovies()">
+
+      <!-- TARGET FOR MOVIE INJECTION -->
+      <div id="movies-container" class="buttons-container"></div>
+    </section>
+
+    <!-- SETTINGS TAB -->
+    <section class="settings-section" id="settingsSection">
+      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+
+      <div class="settings-card">
+        <h2 class="settings-title">Settings</h2>
+
+        <!-- ACCENT COLOR SETTING -->
+        <div class="setting-group">
+          <label class="setting-label">Accent Color</label>
+          <div class="color-picker-grid" id="accentPickerGrid">
+            <button class="color-swatch active" style="background: #6366f1;" onclick="setAccent('#6366f1', 'rgba(99, 102, 241, 0.35)', this)"></button>
+            <button class="color-swatch" style="background: #ec4899;" onclick="setAccent('#ec4899', 'rgba(236, 72, 153, 0.35)', this)"></button>
+            <button class="color-swatch" style="background: #10b981;" onclick="setAccent('#10b981', 'rgba(16, 185, 129, 0.35)', this)"></button>
+            <button class="color-swatch" style="background: #f59e0b;" onclick="setAccent('#f59e0b', 'rgba(245, 158, 11, 0.35)', this)"></button>
+            <button class="color-swatch" style="background: #8b5cf6;" onclick="setAccent('#8b5cf6', 'rgba(139, 92, 246, 0.35)', this)"></button>
+            <button class="color-swatch" style="background: #06b6d4;" onclick="setAccent('#06b6d4', 'rgba(6, 182, 212, 0.35)', this)"></button>
+          </div>
+        </div>
+
+        <!-- BACKGROUND COLOR SETTING -->
+        <div class="setting-group">
+          <label class="setting-label">Background Style</label>
+          <div class="color-picker-grid" id="bgPickerGrid">
+            <button class="color-swatch active" style="background: #1b2735;" onclick="setBg('radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)', this)"></button>
+            <button class="color-swatch" style="background: #0f172a;" onclick="setBg('#0f172a', this)"></button>
+            <button class="color-swatch" style="background: #18181b;" onclick="setBg('#18181b', this)"></button>
+            <button class="color-swatch" style="background: #2a085c;" onclick="setBg('radial-gradient(ellipse at bottom, #2a085c 0%, #090a0f 100%)', this)"></button>
+            <button class="color-swatch" style="background: #064e3b;" onclick="setBg('radial-gradient(ellipse at bottom, #064e3b 0%, #022c22 100%)', this)"></button>
+            <button class="color-swatch" style="background: #4c0519;" onclick="setBg('radial-gradient(ellipse at bottom, #4c0519 0%, #090a0f 100%)', this)"></button>
+          </div>
+        </div>
+
+        <!-- STAR DENSITY SETTING -->
+        <div class="setting-group">
+          <label class="setting-label">Star Density</label>
+          <div class="density-btn-group">
+            <button class="density-btn" onclick="setStarDensity('low', this)">Low</button>
+            <button class="density-btn" onclick="setStarDensity('medium', this)">Medium</button>
+            <button class="density-btn active" onclick="setStarDensity('high', this)">High</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const moviesList = [  
+      { title: "The Dark Knight Trilogy", url: "https://drive.google.com/drive/folders/1sxtovwaj9nvEa_KZjxPjK1n03tSjR1yU" },
+      { title: "The Simpson Movie", url: "https://drive.google.com/file/d/1lfgeKem8CjfY7LHA67xfbdIv1SWliNVp/edit" },
+      { title: "Avengers: Endgame", url: "https://drive.google.com/file/d/1UsxNtlBxGFp955GwEB-s8wYJCA6bXt7e/edit" },
+      { title: "Avengers: Infinity War", url: "https://drive.google.com/file/d/1VWLpj4G4CEgHnjpxfc67MrlEWu5pD75Y/edit" },
+      { title: "Godzilla: King Of The Monsters", url: "https://drive.google.com/file/d/1xlVHznoHc3cczI4emQUNE0vuyD2H_x9g/edit" },
+      { title: "Fight Club", url: "https://drive.google.com/file/d/1J_WyATYoZH9qcaX5RNFrjrwmvySFPTom/edit" },
+      { title: "Toy Story Trilogy", url: "https://drive.google.com/drive/folders/1cmpDGlJ-vvs5g1wJKKoimdjPg28MPS39" },
+      { title: "Ted (Seasons 1-2)", url: "https://drive.google.com/drive/folders/1-6hBb-KZsUoc7ErXnaw2udeQv9u1THRJ" },
+      { title: "Avengers: Age Of Ultron", url: "https://drive.google.com/file/d/1im0w37bz61WkwbQTvP_InTsYwphE6Sxn/edit" },
+      { title: "Oppenheimer", url: "https://drive.google.com/file/d/1GLqywDPqfZSLmLAiKC8j2l0o52cAGP8S/edit" },
+      { title: "Cars 2006", url: "https://drive.google.com/file/d/106N7zd611ShtPMOx97XwFSxkg8theQLN/edit" },
+      { title: "Superman 2025", url: "https://drive.google.com/file/d/1nO646VaJQBN725tPVe9TLFnLBFPJ-jbL/edit" },
+      { title: "Dune: Part Two", url: "https://drive.google.com/file/d/14VeNSqVtt5gcibZOfjPcjkBoasPrpiEG/edit" },
+      { title: "Avatar", url: "https://drive.google.com/file/d/16tKuEYtxi7EeKtX3yZZR-nXgZ_oGTxXS/edit" },
+      { title: "Mulan Saga", url: "https://drive.google.com/drive/folders/0ByibEzjq_Q9LdHlaVzVTLXB5Slk?resourcekey=0-vt41araB3egbisfGtub81g" },
+      { title: "JJK Seasons 1-3", url: "https://drive.google.com/drive/folders/1eqNcKK02wEdRV7RnfrmDRZf2s2QZHUyj" },
+      { title: "Jurassic Park", url: "https://drive.google.com/file/d/1bB65cEOgbz2Y0ic6nGDZfUQlECXBk2qt/edit" },
+      { title: "Venom 2018", url: "https://drive.google.com/file/d/1XoN0B1rsNKDDRphmI8bM606r4wRQ6JUH/edit" },
+      { title: "The Lion King", url: "https://drive.google.com/file/d/1fpkFiPnyvjxCtN6a89i-U2H1cr5_Y_HC/edit" },
+      { title: "Iron Man", url: "https://drive.google.com/file/d/1QOIBXMPZk86AVo0jI-zXYAuJGiWRUnNg/edit" },
+      { title: "Venom: Let There Be Carnage", url: "https://drive.google.com/file/d/13d5gq3Kx3koobcfRTVyH9Hhum3s8Fxag/edit" },
+      { title: "Venom: The Last Dance", url: "https://drive.google.com/file/d/1C6aUcmJeLpm8ysdYwnt7HRZFAT6k0oQs/edit" },
+      { title: "Shang Chi and The Legend Of The Ten Rings", url: "https://drive.google.com/file/d/1xBiVuAnW0hFxIhG3samjzJJ-czMAKxN0/edit" },
+      { title: "The Meg 2", url: "https://drive.google.com/file/d/1lsrwNXj0GlcfIKP7kaynPm4JzWk5v6gQ/edit" },
+      { title: "Squid Game (All Seasons) ", url: "https://drive.google.com/drive/folders/1Zs2H3Nxl-yQHm21RJNbh2bIAesJ5ouY9" }
+    ];
+
+    function renderMovies(list) {
+      const container = document.getElementById('movies-container');
+      const counter = document.getElementById('movieCounter');
+      container.innerHTML = '';
+      counter.textContent = 'Loaded Movies: ' + list.length;
+
+      list.forEach(movie => {
+        const btn = document.createElement('input');
+        btn.type = 'button';
+        btn.value = movie.title;
+        btn.className = 'movie-btn';
+        btn.onclick = () => window.open(movie.url, '_blank');
+        container.appendChild(btn);
+      });
+    }
+
+    function filterMovies() {
+      const q = document.getElementById('movieSearchInput').value.toLowerCase();
+      const filtered = moviesList.filter(m => m.title.toLowerCase().includes(q));
+      renderMovies(filtered);
+    }
+
+    function switchTab(tab) {
+      const homeSec = document.getElementById('homeSection');
+      const gamesSec = document.getElementById('gamesSection');
+      const moviesSec = document.getElementById('moviesSection');
+      const settingsSec = document.getElementById('settingsSection');
+
+      const navHome = document.getElementById('navHome');
+      const navGames = document.getElementById('navGames');
+      const navMovies = document.getElementById('navMovies');
+      const navSettings = document.getElementById('navSettings');
+
+      homeSec.style.display = tab === 'home' ? 'flex' : 'none';
+      gamesSec.style.display = tab === 'games' ? 'flex' : 'none';
+      moviesSec.style.display = tab === 'movies' ? 'flex' : 'none';
+      settingsSec.style.display = tab === 'settings' ? 'flex' : 'none';
+
+      navHome.classList.toggle('active', tab === 'home');
+      navGames.classList.toggle('active', tab === 'games');
+      navMovies.classList.toggle('active', tab === 'movies');
+      navSettings.classList.toggle('active', tab === 'settings');
+
+      if (tab === 'movies') {
+        renderMovies(moviesList);
+      }
+    }
+
+    function setAccent(color, glow, el) {
+      document.documentElement.style.setProperty('--accent-color', color);
+      document.documentElement.style.setProperty('--accent-glow', glow);
+      
+      document.querySelectorAll('#accentPickerGrid .color-swatch').forEach(btn => btn.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function setBg(bg, el) {
+      document.documentElement.style.setProperty('--bg-gradient', bg);
+
+      document.querySelectorAll('#bgPickerGrid .color-swatch').forEach(btn => btn.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function setStarDensity(level, el) {
+      const s1 = document.getElementById('stars');
+      const s2 = document.getElementById('stars2');
+      const s3 = document.getElementById('stars3');
+
+      if (level === 'low') {
+        s1.style.opacity = '1';
+        s2.style.opacity = '0';
+        s3.style.opacity = '0';
+      } else if (level === 'medium') {
+        s1.style.opacity = '1';
+        s2.style.opacity = '1';
+        s3.style.opacity = '0';
+      } else if (level === 'high') {
+        s1.style.opacity = '1';
+        s2.style.opacity = '1';
+        s3.style.opacity = '1';
+      }
+
+      document.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const options = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      const timeBox = document.getElementById('timeBox');
+      if (timeBox) {
+        timeBox.textContent = now.toLocaleString('en-US', options);
+      }
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* --- TYPEWRITER EFFECT --- */
+    const phrases = [
+      "Lets go WE ARE SO BACKKKKK",
+      "Capybaras are so tuffings.",
+      "This is a Static Build, if you want updates, go to the launcher.",
+      "Totally Didn't take the games from UGS",
+      "Would you rather get a billion dollars, or get hit by a freight train - A Wise Person",
+      "What - Joe Biden"
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function handleTypewriter() {
+      const textEl = document.getElementById('typewriterText');
+      const currentPhrase = phrases[phraseIndex];
+
+      if (!isDeleting) {
+        textEl.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentPhrase.length) {
+          isDeleting = true;
+          setTimeout(handleTypewriter, 3000);
+          return;
+        }
+      } else {
+        textEl.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+      }
+
+      const speed = isDeleting ? 40 : 80;
+      setTimeout(handleTypewriter, speed);
+    }
+
+    handleTypewriter();
+  <\/script>
+
+  <!-- EXTERNAL SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"><\/script>
+  <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js"><\/script>
+</body>
+</html>`;
+
+      win.document.open();
+      win.document.write(portalContent);
+      win.document.close();
+    }
+  </script>
+
+</body>
+</html>
