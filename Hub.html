@@ -177,8 +177,8 @@
       letter-spacing: 2px;
     }
 
-    /* --- GAMES & MOVIES SECTION --- */
-    .games-section, .movies-section {
+    /* --- GAMES, MOVIES, CREDITS & SETTINGS SECTIONS --- */
+    .games-section, .movies-section, .credits-section, .settings-section {
       width: 100%;
       max-width: 1200px;
       display: none;
@@ -260,18 +260,14 @@
 
     .reload-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-color); }
 
-    /* --- SETTINGS SECTION --- */
-    .settings-section {
-      width: 100%;
+    /* --- SETTINGS & CREDITS CARD STYLING --- */
+    .settings-section, .credits-section {
       max-width: 600px;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 30px;
     }
 
-    .settings-card {
+    .settings-card, .credits-card {
       width: 100%;
+      max-width: 600px;
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -284,7 +280,7 @@
       gap: 30px;
     }
 
-    .settings-title {
+    .settings-title, .credits-title {
       font-size: 1.5rem;
       font-weight: 300;
       letter-spacing: 6px;
@@ -293,6 +289,44 @@
       color: #ffffff;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 15px;
+    }
+
+    .credits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .credit-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 16px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .credit-role {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      font-weight: 500;
+    }
+
+    .credit-name {
+      font-size: 1.05rem;
+      letter-spacing: 2px;
+      color: #ffffff;
+      font-weight: 300;
+    }
+
+    .credit-desc {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+      line-height: 1.4;
     }
 
     .setting-group {
@@ -393,7 +427,7 @@
   <div id="stars2" class="star-layer"></div>
   <div id="stars3" class="star-layer"></div>
 
-  <!-- HIDDEN SIDEBAR (Kept hidden so external JS does not error) -->
+  <!-- HIDDEN SIDEBAR -->
   <div id="sidebar" style="display: none;"></div>
 
   <!-- MAIN WRAPPER -->
@@ -413,6 +447,7 @@
         <button class="nav-item active" id="navHome" onclick="switchTab('home')">Home</button>
         <button class="nav-item" id="navGames" onclick="switchTab('games')">Games</button>
         <button class="nav-item" id="navMovies" onclick="switchTab('movies')">Movies</button>
+        <button class="nav-item" id="navCredits" onclick="switchTab('credits')">Credits</button>
         <button class="nav-item" id="navSettings" onclick="switchTab('settings')">Settings</button>
       </nav>
 
@@ -445,6 +480,54 @@
 
       <!-- TARGET FOR MOVIE INJECTION -->
       <div id="movies-container" class="buttons-container"></div>
+    </section>
+
+    <!-- CREDITS TAB -->
+    <section class="credits-section" id="creditsSection">
+      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+
+      <div class="credits-card">
+        <h2 class="credits-title">Credits</h2>
+        <div class="credits-list">
+          <div class="credit-item">
+            <span class="credit-role"> Awesome Creator 🥹</span>
+            <span class="credit-name">Walter Dog</span>
+            <span class="credit-desc">Created and maintains Walter Dog's Hub (also they are awesome🥹).</span>
+          </div>
+          <div class="credit-item">
+            <span class="credit-role">Games</span>
+            <span class="credit-name">UGS</span>
+            <span class="credit-desc">I stole the games hehehehehe.</span>
+          </div>
+          <div>
+          <div class="credit-item">
+            <span class="credit-role">Partnership</span>
+            <span class="credit-name">Eclip Games</span>
+            <span class="credit-desc">Thanks for everything :)</span>
+           </div>
+           </div>
+           <div>
+          <div class="credit-item">
+            <span class="credit-role">Partnership</span>
+            <span class="credit-name">Express Airways</span>
+            <span class="credit-desc">First to suggest to switch to github and make the site entirely out of code.</span>
+           </div>
+           </div>
+           <div>
+          <div class="credit-item">
+            <span class="credit-role"> People</span>
+            <span class="credit-name"> Contributors</span>
+            <span class="credit-desc"> Thanks to Cra-Z Gaming, Velcro's proxies, and other people🥹🥹🥹 </span>
+          </div>
+           </div>
+           <div>
+          <div class="credit-item">
+            <span class="credit-role">Fonts &amp; Styling</span>
+            <span class="credit-name">Google Fonts</span>
+            <span class="credit-desc">Montserrat &amp; Courier Prime fonts used throughout the UI.</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SETTINGS TAB -->
@@ -520,7 +603,6 @@
       { title: "Venom: The Last Dance", url: "https://drive.google.com/file/d/1C6aUcmJeLpm8ysdYwnt7HRZFAT6k0oQs/edit" },
       { title: "Shang Chi and The Legend Of The Ten Rings", url: "https://drive.google.com/file/d/1xBiVuAnW0hFxIhG3samjzJJ-czMAKxN0/edit" },
       { title: "The Meg 2", url: "https://drive.google.com/file/d/1lsrwNXj0GlcfIKP7kaynPm4JzWk5v6gQ/edit" },
-      { title: "Blue Beetle", url: "https://drive.google.com/file/d/1T2XMXtDAlohPcGdi-u2p9zXF9Os9zkY1/edit" },
       { title: "Squid Game (All Seasons) ", url: "https://drive.google.com/drive/folders/1Zs2H3Nxl-yQHm21RJNbh2bIAesJ5ouY9" }
     ];
 
@@ -550,21 +632,25 @@
       const homeSec = document.getElementById('homeSection');
       const gamesSec = document.getElementById('gamesSection');
       const moviesSec = document.getElementById('moviesSection');
+      const creditsSec = document.getElementById('creditsSection');
       const settingsSec = document.getElementById('settingsSection');
 
       const navHome = document.getElementById('navHome');
       const navGames = document.getElementById('navGames');
       const navMovies = document.getElementById('navMovies');
+      const navCredits = document.getElementById('navCredits');
       const navSettings = document.getElementById('navSettings');
 
       homeSec.style.display = tab === 'home' ? 'flex' : 'none';
       gamesSec.style.display = tab === 'games' ? 'flex' : 'none';
       moviesSec.style.display = tab === 'movies' ? 'flex' : 'none';
+      creditsSec.style.display = tab === 'credits' ? 'flex' : 'none';
       settingsSec.style.display = tab === 'settings' ? 'flex' : 'none';
 
       navHome.classList.toggle('active', tab === 'home');
       navGames.classList.toggle('active', tab === 'games');
       navMovies.classList.toggle('active', tab === 'movies');
+      navCredits.classList.toggle('active', tab === 'credits');
       navSettings.classList.toggle('active', tab === 'settings');
 
       if (tab === 'movies') {
