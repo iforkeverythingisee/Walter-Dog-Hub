@@ -1,4 +1,4 @@
-Wsg Yall
+Wsg Yall🥺
 -----------------------------------------------------------------------------------------------------
 This is Walter Dog's hub.
 I really don't know what to say.
