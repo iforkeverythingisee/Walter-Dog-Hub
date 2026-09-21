@@ -1,1 +1,23 @@
+<!-- ABOUT:BLANK OPENER MODAL -->
+  <div id="aboutBlankModal" class="modal-overlay" onclick="if(event.target === this) closeToolModal('aboutBlankModal')">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeToolModal('aboutBlankModal')">&times;</button>
+      <h2 class="tools-title">about:blank Launcher</h2>
 
+      <!-- URL Opener Section -->
+      <div class="setting-group">
+        <label class="setting-label" for="urlInput">Embed a URL / Web Proxy:</label>
+        <input type="text" id="urlInput" class="tool-input" placeholder="https://example.com">
+        <button class="tool-btn" onclick="openUrl()">Open URL in about:blank</button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- File Opener Section -->
+      <div class="setting-group">
+        <label class="setting-label" for="fileInput">Upload &amp; Open Local File:</label>
+        <input type="file" id="fileInput" class="tool-file-input" accept=".html,.htm,.pdf,.png,.jpg,.txt">
+        <button class="tool-btn" onclick="openFile()">Open File in about:blank</button>
+      </div>
+    </div>
+  </div>
