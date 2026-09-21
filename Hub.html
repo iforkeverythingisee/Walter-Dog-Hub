@@ -25,6 +25,12 @@
       transition: background 0.4s ease;
     }
 
+    /* --- MCDONALD CAT CURSOR --- */
+    body.mcdonald-cursor,
+    body.mcdonald-cursor * {
+      cursor: url('Screenshot_2026-09-21_10.33.33_AM-removebg-preview.png') 16 16, auto !important;
+    }
+
     /* --- HIGH DENSITY PARALLAX STAR BACKGROUND --- */
     .star-layer { position: fixed; top: 0; left: 0; width: 100%; height: 200%; pointer-events: none; z-index: 1; transition: opacity 0.5s ease; }
     
@@ -177,7 +183,7 @@
       letter-spacing: 2px;
     }
 
-    /* --- GAMES, MOVIES, TOOLS, CREDITS & SETTINGS SECTIONS --- */
+    /* --- SECTIONS --- */
     .games-section, .movies-section, .tools-section, .credits-section, .settings-section {
       width: 100%;
       max-width: 1200px;
@@ -260,7 +266,7 @@
 
     .reload-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-color); }
 
-    /* --- SETTINGS, TOOLS & CREDITS CARD STYLING --- */
+    /* --- CARD STYLING --- */
     .settings-section, .tools-section, .credits-section {
       max-width: 600px;
     }
@@ -291,7 +297,7 @@
       padding-bottom: 15px;
     }
 
-    /* --- TOOLS GRID & LAUNCHER BUTTON STYLING --- */
+    /* --- TOOLS GRID --- */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -323,10 +329,7 @@
       box-shadow: 0 8px 20px var(--accent-glow);
     }
 
-    .tool-icon {
-      font-size: 2.2rem;
-    }
-
+    .tool-icon { font-size: 2.2rem; }
     .tool-name {
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
@@ -336,7 +339,7 @@
       font-weight: 300;
     }
 
-    /* --- GLASS MODAL POPUP FOR TOOLS --- */
+    /* --- MODAL --- */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -386,11 +389,8 @@
       transition: color 0.2s;
     }
 
-    .modal-close-btn:hover {
-      color: var(--accent-color);
-    }
+    .modal-close-btn:hover { color: var(--accent-color); }
 
-    /* --- TOOL INPUT & BUTTON STYLING --- */
     .tool-input {
       width: 100%;
       padding: 12px 18px;
@@ -537,10 +537,7 @@
       transition: transform 0.2s, border-color 0.2s;
     }
 
-    .color-swatch:hover {
-      transform: scale(1.15);
-    }
-
+    .color-swatch:hover { transform: scale(1.15); }
     .color-swatch.active {
       border-color: #ffffff;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -573,7 +570,7 @@
       box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    /* --- INJECTED GAME & MOVIE STYLING --- */
+    /* --- INJECTED CONTENT --- */
     #sections-container, #movies-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
     .letter-section { margin-bottom: 50px; padding: 0 10px; width: 100%; }
     .letter-section.empty { opacity: 0.4; }
@@ -638,27 +635,16 @@
     <!-- GAMES TAB -->
     <section class="games-section" id="gamesSection">
       <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
-
-      <!-- SEARCH INPUT -->
       <input type="text" placeholder="SEARCH GAMES..." id="searchInput" class="search-input">
-
       <button id="lolbutton" class="reload-btn" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@latest/game.js';document.body.appendChild(script);">Click to load if it isn't loading</button>
-
-      <!-- TARGET FOR GAME INJECTION -->
       <div id="sections-container"></div>
     </section>
 
     <!-- MOVIES TAB -->
     <section class="movies-section" id="moviesSection">
       <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
-
-      <!-- MOVIE COUNTER -->
       <div class="movie-counter" id="movieCounter">Loaded Movies: 0</div>
-
-      <!-- SEARCH INPUT -->
       <input type="text" placeholder="SEARCH MOVIES..." id="movieSearchInput" class="search-input" oninput="filterMovies()">
-
-      <!-- TARGET FOR MOVIE INJECTION -->
       <div id="movies-container" class="buttons-container"></div>
     </section>
 
@@ -668,11 +654,9 @@
 
       <div class="tools-card">
         <h2 class="tools-title">Tools</h2>
-
-        <!-- TOOLS GRID (CONTAINING ABOUT BLANK OPENER) -->
         <div class="tools-grid">
           <button class="tool-launcher-btn" onclick="openToolModal('aboutBlankModal')">
-            <span class="tool-icon">🫥</span>
+            <span class="tool-icon">🚀</span>
             <span class="tool-name">about:blank opener</span>
           </button>
         </div>
@@ -727,6 +711,15 @@
       <div class="settings-card">
         <h2 class="settings-title">Settings</h2>
 
+        <!-- CUSTOM CURSOR SETTING -->
+        <div class="setting-group">
+          <label class="setting-label">Custom Cursor</label>
+          <div class="density-btn-group">
+            <button class="density-btn active" onclick="setCursorStyle('default', this)">Default</button>
+            <button class="density-btn" onclick="setCursorStyle('mcdonald', this)">McDonald Cat</button>
+          </div>
+        </div>
+
         <!-- ACCENT COLOR SETTING -->
         <div class="setting-group">
           <label class="setting-label">Accent Color</label>
@@ -773,7 +766,6 @@
       <button class="modal-close-btn" onclick="closeToolModal('aboutBlankModal')">&times;</button>
       <h2 class="tools-title">about:blank Launcher</h2>
 
-      <!-- URL Opener Section -->
       <div class="setting-group">
         <label class="setting-label" for="urlInput">Embed a URL / Web Proxy:</label>
         <input type="text" id="urlInput" class="tool-input" placeholder="https://example.com">
@@ -782,7 +774,6 @@
 
       <div class="tool-divider"></div>
 
-      <!-- File Opener Section -->
       <div class="setting-group">
         <label class="setting-label" for="fileInput">Upload &amp; Open Local File:</label>
         <input type="file" id="fileInput" class="tool-file-input" accept=".html,.htm,.pdf,.png,.jpg,.txt">
@@ -881,6 +872,19 @@
       }
     }
 
+    /* --- CURSOR SETTING FUNCTION --- */
+    function setCursorStyle(type, el) {
+      if (type === 'mcdonald') {
+        document.body.classList.add('mcdonald-cursor');
+      } else {
+        document.body.classList.remove('mcdonald-cursor');
+      }
+
+      const group = el.parentElement;
+      group.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
     function setAccent(color, glow, el) {
       document.documentElement.style.setProperty('--accent-color', color);
       document.documentElement.style.setProperty('--accent-glow', glow);
@@ -915,7 +919,8 @@
         s3.style.opacity = '1';
       }
 
-      document.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
+      const group = el.parentElement;
+      group.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
       if (el) el.classList.add('active');
     }
 
