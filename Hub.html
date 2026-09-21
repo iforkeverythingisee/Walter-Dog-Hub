@@ -30,6 +30,11 @@
     body.mcdonald-cursor * {
       cursor: url('https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/ezgif-6a2cd4f53ec3702e.png') 16 16, auto !important;
     }
+    /* --- SAD HAMPTER CURSOR --- */
+    body.hamster-cursor,
+    body.hamster-cursor * {
+      cursor: url('https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/ezgif-7fc1ec0fa88ec647.png') 16 16, auto !important;
+    }
 
     /* --- HIGH DENSITY PARALLAX STAR BACKGROUND --- */
     .star-layer { position: fixed; top: 0; left: 0; width: 100%; height: 200%; pointer-events: none; z-index: 1; transition: opacity 0.5s ease; }
@@ -717,6 +722,7 @@
           <div class="density-btn-group">
             <button class="density-btn active" onclick="setCursorStyle('default', this)">Default</button>
             <button class="density-btn" onclick="setCursorStyle('mcdonald', this)">McDonald Cat</button>
+            <button class="density-btn" onclick="setCursorStyle('hamster', this)">Sad Hamster</button>
           </div>
         </div>
 
@@ -876,8 +882,8 @@
     function setCursorStyle(type, el) {
       if (type === 'mcdonald') {
         document.body.classList.add('mcdonald-cursor');
-      } else {
-        document.body.classList.remove('mcdonald-cursor');
+      } else if (type === 'hamster') {  
+        document.body.classList.add('hamster-cursor');
       }
 
       const group = el.parentElement;
