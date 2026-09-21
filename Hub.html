@@ -177,8 +177,8 @@
       letter-spacing: 2px;
     }
 
-    /* --- GAMES, MOVIES, CREDITS & SETTINGS SECTIONS --- */
-    .games-section, .movies-section, .credits-section, .settings-section {
+    /* --- GAMES, MOVIES, TOOLS, CREDITS & SETTINGS SECTIONS --- */
+    .games-section, .movies-section, .tools-section, .credits-section, .settings-section {
       width: 100%;
       max-width: 1200px;
       display: none;
@@ -260,12 +260,12 @@
 
     .reload-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-color); }
 
-    /* --- SETTINGS & CREDITS CARD STYLING --- */
-    .settings-section, .credits-section {
+    /* --- SETTINGS, TOOLS & CREDITS CARD STYLING --- */
+    .settings-section, .tools-section, .credits-section {
       max-width: 600px;
     }
 
-    .settings-card, .credits-card {
+    .settings-card, .tools-card, .credits-card {
       width: 100%;
       max-width: 600px;
       background: rgba(255, 255, 255, 0.08);
@@ -280,7 +280,7 @@
       gap: 30px;
     }
 
-    .settings-title, .credits-title {
+    .settings-title, .tools-title, .credits-title {
       font-size: 1.5rem;
       font-weight: 300;
       letter-spacing: 6px;
@@ -289,6 +289,86 @@
       color: #ffffff;
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 15px;
+    }
+
+    /* --- TOOL INPUT & BUTTON STYLING --- */
+    .tool-input {
+      width: 100%;
+      padding: 12px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #fff;
+      outline: none;
+      letter-spacing: 1px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .tool-input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .tool-file-input {
+      width: 100%;
+      padding: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+
+    .tool-file-input::file-selector-button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .tool-file-input::file-selector-button:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+    }
+
+    .tool-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .tool-btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .tool-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 10px 0;
     }
 
     .credits-list {
@@ -447,6 +527,7 @@
         <button class="nav-item active" id="navHome" onclick="switchTab('home')">Home</button>
         <button class="nav-item" id="navGames" onclick="switchTab('games')">Games</button>
         <button class="nav-item" id="navMovies" onclick="switchTab('movies')">Movies</button>
+        <button class="nav-item" id="navTools" onclick="switchTab('tools')">Tools</button>
         <button class="nav-item" id="navCredits" onclick="switchTab('credits')">Credits</button>
         <button class="nav-item" id="navSettings" onclick="switchTab('settings')">Settings</button>
       </nav>
@@ -482,6 +563,31 @@
       <div id="movies-container" class="buttons-container"></div>
     </section>
 
+    <!-- TOOLS TAB -->
+    <section class="tools-section" id="toolsSection">
+      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+
+      <div class="tools-card">
+        <h2 class="tools-title">about:blank Launcher</h2>
+
+        <!-- URL Opener Section -->
+        <div class="setting-group">
+          <label class="setting-label" for="urlInput">Embed a URL / Web Proxy:</label>
+          <input type="text" id="urlInput" class="tool-input" placeholder="https://example.com">
+          <button class="tool-btn" onclick="openUrl()">Open URL in about:blank</button>
+        </div>
+
+        <div class="tool-divider"></div>
+
+        <!-- File Opener Section -->
+        <div class="setting-group">
+          <label class="setting-label" for="fileInput">Upload &amp; Open Local File:</label>
+          <input type="file" id="fileInput" class="tool-file-input" accept=".html,.htm,.pdf,.png,.jpg,.txt">
+          <button class="tool-btn" onclick="openFile()">Open File in about:blank</button>
+        </div>
+      </div>
+    </section>
+
     <!-- CREDITS TAB -->
     <section class="credits-section" id="creditsSection">
       <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
@@ -499,28 +605,21 @@
             <span class="credit-name">UGS</span>
             <span class="credit-desc">I stole the games hehehehehe.</span>
           </div>
-          <div>
           <div class="credit-item">
             <span class="credit-role">Partnership</span>
             <span class="credit-name">Eclip Games</span>
             <span class="credit-desc">Thanks for everything :)</span>
-           </div>
-           </div>
-           <div>
+          </div>
           <div class="credit-item">
             <span class="credit-role">Partnership</span>
             <span class="credit-name">Express Airways</span>
             <span class="credit-desc">First to suggest to switch to github and make the site entirely out of code.</span>
-           </div>
-           </div>
-           <div>
+          </div>
           <div class="credit-item">
             <span class="credit-role"> People</span>
             <span class="credit-name"> Contributors</span>
             <span class="credit-desc"> Thanks to Cra-Z Gaming, Velcro's proxies, and other people🥹🥹🥹 </span>
           </div>
-           </div>
-           <div>
           <div class="credit-item">
             <span class="credit-role">Fonts &amp; Styling</span>
             <span class="credit-name">Google Fonts</span>
@@ -637,24 +736,28 @@
       const homeSec = document.getElementById('homeSection');
       const gamesSec = document.getElementById('gamesSection');
       const moviesSec = document.getElementById('moviesSection');
+      const toolsSec = document.getElementById('toolsSection');
       const creditsSec = document.getElementById('creditsSection');
       const settingsSec = document.getElementById('settingsSection');
 
       const navHome = document.getElementById('navHome');
       const navGames = document.getElementById('navGames');
       const navMovies = document.getElementById('navMovies');
+      const navTools = document.getElementById('navTools');
       const navCredits = document.getElementById('navCredits');
       const navSettings = document.getElementById('navSettings');
 
       homeSec.style.display = tab === 'home' ? 'flex' : 'none';
       gamesSec.style.display = tab === 'games' ? 'flex' : 'none';
       moviesSec.style.display = tab === 'movies' ? 'flex' : 'none';
+      toolsSec.style.display = tab === 'tools' ? 'flex' : 'none';
       creditsSec.style.display = tab === 'credits' ? 'flex' : 'none';
       settingsSec.style.display = tab === 'settings' ? 'flex' : 'none';
 
       navHome.classList.toggle('active', tab === 'home');
       navGames.classList.toggle('active', tab === 'games');
       navMovies.classList.toggle('active', tab === 'movies');
+      if (navTools) navTools.classList.toggle('active', tab === 'tools');
       navCredits.classList.toggle('active', tab === 'credits');
       navSettings.classList.toggle('active', tab === 'settings');
 
@@ -764,6 +867,91 @@
     }
 
     handleTypewriter();
+
+    /* --- ABOUT:BLANK LAUNCHER FUNCTIONS --- */
+    function openUrl() {
+      let url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('Please enter a URL.');
+        return;
+      }
+
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+
+      const win = window.open('about:blank', '_blank');
+      if (!win) {
+        alert('Pop-up blocked! Please allow pop-ups for this site.');
+        return;
+      }
+
+      win.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>View Document</title>
+          <style>
+            html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+            iframe { width: 100%; height: 100%; border: none; }
+          </style>
+        </head>
+        <body>
+          <iframe src="${url}"></iframe>
+        </body>
+        </html>
+      `);
+      win.document.close();
+    }
+
+    function openFile() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const win = window.open('about:blank', '_blank');
+        if (!win) {
+          alert('Pop-up blocked! Please allow pop-ups for this site.');
+          return;
+        }
+
+        if (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+          const textReader = new FileReader();
+          textReader.onload = function(evt) {
+            win.document.open();
+            win.document.write(evt.target.result);
+            win.document.close();
+          };
+          textReader.readAsText(file);
+        } else {
+          win.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>${file.name}</title>
+              <style>
+                html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+                iframe { width: 100%; height: 100%; border: none; }
+              </style>
+            </head>
+            <body>
+              <iframe src="${e.target.result}"></iframe>
+            </body>
+            </html>
+          `);
+          win.document.close();
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   </script>
 
   <!-- EXTERNAL SCRIPTS -->
