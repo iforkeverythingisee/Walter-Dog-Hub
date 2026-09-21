@@ -879,17 +879,26 @@
     }
 
     /* --- CURSOR SETTING FUNCTION --- */
-    function setCursorStyle(type, el) {
+   function setCursorStyle(type, el) {
+      document.body.classList.forEach(className => {
+        if (className.endsWith('-cursor')) {
+          document.body.classList.remove(className);
+        }     
+     });
+     
+      
       if (type === 'mcdonald') {
         document.body.classList.add('mcdonald-cursor');
       } else if (type === 'hamster') {  
         document.body.classList.add('hamster-cursor');
       }
+        
 
-      const group = el.parentElement;
-      group.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
-      if (el) el.classList.add('active');
+      if (el && el.parentElement) {
+    el.parentElement.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
+    el.classList.add('active');
     }
+  }
 
     function setAccent(color, glow, el) {
       document.documentElement.style.setProperty('--accent-color', color);
