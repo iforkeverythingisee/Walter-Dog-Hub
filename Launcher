@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #090a0f;
+      font-family: Arial, sans-serif;
+    }
+    .open-btn {
+      padding: 16px 36px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #ffffff;
+      background: #6366f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .open-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
 
+  <button class="open-btn" onclick="openSite()">Open</button>
+
+  <script>
+    // 🔗 REPLACE THIS WITH YOUR RAW GITHUB URL
+    const RAW_HUB_URL = 'https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/refs/heads/main/Hub.html' ;
+
+    async function openSite() {
+      // Open tab immediately on click to prevent browser pop-up blockers
+      const win = window.open('about:blank', '_blank');
+      if (!win) {
+        alert('Pop-up blocked! Boi, enable pop-ups in your browser.');
+        return;
+      }
+
+      // Show temporary loading text inside the blank tab
+      win.document.write('<h2 style="color:white;background:#090a0f;height:100vh;margin:0;display:flex;align-items:center;justify-content:center;font-family:sans-serif;">Loading Hub...</h2>');
+
+      try {
+        // Appended timestamp bypasses browser and GitHub caching for instant updates
+        const response = await fetch(RAW_HUB_URL + '?v=' + Date.now());
+        if (!response.ok) throw new Error('Failed to fetch site code.');
+        const portalContent = await response.text();
+
+        // Inject the fetched HTML code into the popup window
+        win.document.open();
+        win.document.write(portalContent);
+        win.document.close();
+      } catch (err) {
+        win.document.open();
+        win.document.write('<h2 style="color:#ef4444;background:#090a0f;height:100vh;margin:0;display:flex;align-items:center;justify-content:center;font-family:sans-serif;">Error loading site. Check your raw GitHub URL.</h2>');
+        win.document.close();
+      }
+    }
+  </script>
+
+</body>
+</html>
