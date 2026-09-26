@@ -26,17 +26,19 @@
     }
 
     /* --- MCDONALD CAT CURSOR --- */
+    /*so peak*/
     body.mcdonald-cursor,
     body.mcdonald-cursor * {
       cursor: url('https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/ezgif-6a2cd4f53ec3702e.png') 16 16, auto !important;
     }
     /* --- SAD HAMPTER CURSOR --- */
+    /* also beautiful*/
     body.hamster-cursor,
     body.hamster-cursor * {
       cursor: url('https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/ezgif-7fc1ec0fa88ec647.png') 16 16, auto !important;
     }
 
-    /* --- HIGH DENSITY PARALLAX STAR BACKGROUND --- */
+    /* --- DENSITY (changeable) PARALLAX STAR BACKGROUND --- */
     .star-layer { position: fixed; top: 0; left: 0; width: 100%; height: 200%; pointer-events: none; z-index: 1; transition: opacity 0.5s ease; }
     
     #stars {
@@ -210,7 +212,7 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
     }
-
+      /* The Lion does not concern itself with home*/
     .go-home-btn {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -766,11 +768,11 @@
 
   </div>
 
-  <!-- ABOUT:BLANK OPENER MODAL -->
+  <!-- ABOUT:BLANK OPENER (i stole this from VUS hub) -->
   <div id="aboutBlankModal" class="modal-overlay" onclick="if(event.target === this) closeToolModal('aboutBlankModal')">
     <div class="modal-card">
       <button class="modal-close-btn" onclick="closeToolModal('aboutBlankModal')">&times;</button>
-      <h2 class="tools-title">about:blank Launcher</h2>
+      <h2 class="tools-title">about:blank Launcher</h2>\
 
       <div class="setting-group">
         <label class="setting-label" for="urlInput">Embed a URL / Web Proxy:</label>
@@ -1026,7 +1028,7 @@
 
       const win = window.open('about:blank', '_blank');
       if (!win) {
-        alert('Pop-up blocked! Please allow pop-ups for this site.');
+        alert('Pop-up blocked! Boi, allow pop-ups for this site NOW.');
         return;
       }
 
