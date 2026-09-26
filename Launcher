@@ -37,7 +37,7 @@
   <button class="open-btn" onclick="openSite()">Open</button>
 
   <script>
-    // 🔗 REPLACE THIS WITH YOUR RAW GITHUB URL
+    // Tuffingson G Tuffingson raw link
     const RAW_HUB_URL = 'https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/refs/heads/main/Hub.html' ;
 
     async function openSite() {
@@ -58,6 +58,7 @@
         const portalContent = await response.text();
 
         // Inject the fetched HTML code into the popup window
+        // also, WHAT THE FUCK ARE YOU DOING HERE?
         win.document.open();
         win.document.write(portalContent);
         win.document.close();
