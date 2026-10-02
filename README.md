@@ -1,7 +1,5 @@
 # Wsg Yall🥺
 
-**Walter Dog's Hub** — games, movies, tools and good vibes, all in one static page.
-
 I really don't know what to say.
 My Google site got blocked, so I'm switching to the new world of GITHUB.
 Copy the launcher code into w3Schools, Google Sites, or CodeBeautify.
