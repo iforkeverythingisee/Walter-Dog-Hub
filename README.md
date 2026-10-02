@@ -36,8 +36,7 @@ ok bye.
 | **Credits** | Everyone who made this possible |
 | **Settings** | Cursor, accent colour, background, star density, animations |
 
-Everything is a single HTML file — no build step, no framework, no runtime
-dependencies. If you can open a text editor, you can run this.
+This is all in a SINGLE FILE launcher btw.
 
 ## How to use it
 
