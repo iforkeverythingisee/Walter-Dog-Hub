@@ -63,7 +63,7 @@ If storage is unavailable (for example when the hub is injected into an
 | Star Density | Low, Medium, High |
 | Animations | On, Off |
 
-The page also honours your OS-level **prefers reduced motion** setting.
+The page also remember your **prefers reduced motion** setting if your computer is SLOWWWWWWW.
 
 ## Keyboard shortcuts
 
