@@ -2,15 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Launcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walter Dog's Hub - Launcher</title>
+  <meta name="description" content="One click launcher for Walter Dog's Hub.">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236366f1'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='white' font-family='monospace'%3EW%3C/text%3E%3C/svg%3E">
   <style>
     body {
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 18px;
       background-color: #090a0f;
+      color: #ffffff;
       font-family: Arial, sans-serif;
     }
     .open-btn {
@@ -30,44 +38,151 @@
       background: #4f46e5;
       transform: translateY(-2px);
     }
+    .open-btn:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+    }
+    .open-btn[disabled] {
+      opacity: 0.6;
+      cursor: progress;
+      transform: none;
+    }
+    .status {
+      min-height: 1.4em;
+      max-width: 42ch;
+      margin: 0;
+      text-align: center;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .status.error { color: #fca5a5; }
+    .credit {
+      margin: 0;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .credit a { color: inherit; }
+    @media (prefers-reduced-motion: reduce) {
+      .open-btn { transition: none; }
+    }
+    noscript p {
+      max-width: 42ch;
+      text-align: center;
+      color: #fca5a5;
+      letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
 
-  <button class="open-btn" onclick="openSite()">Open</button>
+  <button type="button" class="open-btn" id="openBtn" onclick="openSite()">Open</button>
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <p class="credit">Walter Dog's Hub &middot; <a href="https://github.com/iforkeverythingisee/Walter-Dog-Hub" rel="noopener">source</a></p>
+
+  <noscript>
+    <p>This launcher needs JavaScript enabled. Please turn it on and refresh.</p>
+  </noscript>
 
   <script>
     // Tuffingson G Tuffingson raw link
-    const RAW_HUB_URL = 'https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/refs/heads/main/Hub.html' ;
+    const RAW_HUB_URL = 'https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/refs/heads/main/Hub.html';
+    const FETCH_TIMEOUT_MS = 15000;
+
+    const openBtn = document.getElementById('openBtn');
+    const statusEl = document.getElementById('status');
+    let launching = false;
+
+    function setStatus(message, isError) {
+      statusEl.textContent = message || '';
+      statusEl.classList.toggle('error', !!isError);
+    }
+
+    function writeInto(win, html) {
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    }
+
+    function failIn(win, message) {
+      const safe = String(message)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      writeInto(
+        win,
+        '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Loading failed</title></head>' +
+        '<body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;' +
+        'background:#090a0f;color:#fca5a5;font-family:sans-serif;text-align:center;padding:20px;">' +
+        '<div><h2 style="font-weight:400;">Error loading site.</h2>' +
+        '<p style="color:rgba(255,255,255,.7);">' + safe + '</p></div></body></html>'
+      );
+    }
+
+    async function fetchHubHtml() {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+      try {
+        // Appended timestamp bypasses browser and GitHub caching for instant updates
+        const response = await fetch(RAW_HUB_URL + '?v=' + Date.now(), { signal: controller.signal });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+
+        const html = await response.text();
+        if (!/<html[\s>]/i.test(html)) {
+          throw new Error('The raw file did not return HTML (GitHub may be rate limiting).');
+        }
+        return html;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
 
     async function openSite() {
+      if (launching) return;
+      launching = true;
+      openBtn.disabled = true;
+      setStatus('Opening the hub…');
+
       // Open tab immediately on click to prevent browser pop-up blockers
       const win = window.open('about:blank', '_blank');
       if (!win) {
-        alert('Pop-up blocked! Boi, enable pop ups NOW');
+        setStatus('Pop-up blocked! Boi, enable pop ups NOW', true);
+        launching = false;
+        openBtn.disabled = false;
         return;
       }
 
       // Show temporary loading text inside the blank tab
-      win.document.write('<h2 style="color:white;background:#090a0f;height:100vh;margin:0;display:flex;align-items:center;justify-content:center;font-family:sans-serif;">Loading Hub...</h2>');
+      writeInto(
+        win,
+        '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Loading Hub</title></head>' +
+        '<body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;' +
+        'background:#090a0f;color:#fff;font-family:sans-serif;">Loading Hub...</body></html>'
+      );
 
       try {
-        // Appended timestamp bypasses browser and GitHub caching for instant updates
-        const response = await fetch(RAW_HUB_URL + '?v=' + Date.now());
-        if (!response.ok) throw new Error('Failed to fetch site code. Im sorry :(');
-        const portalContent = await response.text();
+        const portalContent = await fetchHubHtml();
 
         // Inject the fetched HTML code into the popup window
         // also, WHAT THE FUCK ARE YOU DOING HERE?
-        win.document.open();
-        win.document.write(portalContent);
-        win.document.close();
+        writeInto(win, portalContent);
+        try { win.opener = null; } catch (e) { /* ignore */ }
+        setStatus('');
       } catch (err) {
-        win.document.open();
-        win.document.write('<h2 style="color:#ef4444;background:#090a0f;height:100vh;margin:0;display:flex;align-items:center;justify-content:center;font-family:sans-serif;">Error loading site. Check your raw GitHub URL.</h2>');
-        win.document.close();
+        const detail = err && err.name === 'AbortError'
+          ? 'The request timed out. Check your connection and try again.'
+          : (err && err.message ? err.message : 'Unknown error');
+        failIn(win, detail + ' - Check your raw GitHub URL.');
+        setStatus('Failed to load the hub. Try again in a second.', true);
+      } finally {
+        launching = false;
+        openBtn.disabled = false;
       }
     }
+
   </script>
 
 </body>

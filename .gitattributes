@@ -1,0 +1,10 @@
+# Normalise line endings for text files; keep binaries untouched.
+* text=auto
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.pdf   binary

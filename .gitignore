@@ -1,0 +1,12 @@
+# OS
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Node (tooling only - this site has no runtime dependencies)
+node_modules/
+npm-debug.log*

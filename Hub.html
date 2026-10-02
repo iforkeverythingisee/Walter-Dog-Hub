@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Walter Dog's Hub</title>
+  <meta name="description" content="Walter Dog's Hub - games, movies, tools and good vibes in a single static page.">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Walter Dog's Hub">
+  <meta property="og:description" content="Games, movies, tools and good vibes in a single static page.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236366f1'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='white' font-family='monospace'%3EW%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -578,7 +585,8 @@
     }
 
     /* --- INJECTED CONTENT --- */
-    #sections-container, #movies-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    #sections-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    #movies-container { width: 100%; }
     .letter-section { margin-bottom: 50px; padding: 0 10px; width: 100%; }
     .letter-section.empty { opacity: 0.4; }
     .letter-header {
@@ -601,38 +609,124 @@
       transform: translateY(-4px); background: var(--accent-glow);
       border-color: var(--accent-color); box-shadow: 0 8px 20px var(--accent-glow);
     }
+
+    /* --- ACCESSIBILITY: KEYBOARD FOCUS --- */
+    :focus-visible {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: 16px;
+      z-index: 2000;
+      background: var(--accent-color);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 0 0 12px 12px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus { top: 0; }
+
+    /* --- ACCESSIBILITY: REDUCED MOTION --- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body.no-motion .star-layer,
+    body.no-motion .cursor,
+    body.no-motion .modal-card { animation: none !important; }
+    body.no-motion * { transition: none !important; }
+
+    /* --- STATUS / EMPTY MESSAGES --- */
+    .games-status, .empty-results {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin-bottom: 25px;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .games-status:empty, .empty-results[hidden] { display: none; }
+    .games-status.error { border-color: #ef4444; color: #fecaca; }
+
+    .movie-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .movie-actions .search-input { margin-bottom: 0; max-width: none; width: auto; flex: 1 1 280px; }
+    .movie-actions .reload-btn { margin-bottom: 0; flex: 0 0 auto; }
+
+    .movie-btn { white-space: normal; line-height: 1.35; overflow-wrap: anywhere; }
+
+    /* --- RESPONSIVE TWEAKS --- */
+    .site-title { font-size: clamp(2rem, 8vw, 3.5rem); letter-spacing: clamp(4px, 3vw, 16px); }
+    .glass-nav { flex-wrap: wrap; justify-content: center; max-width: 100%; }
+    .nav-item { padding: 10px 18px; }
+
+    body.modal-open { overflow: hidden; }
   </style>
 </head>
-<body>
+<body class="">
+
+  <a class="skip-link" href="#mainContent">Skip to content</a>
+
+  <noscript>
+    <div style="position:relative;z-index:100;padding:20px;text-align:center;font-family:monospace;background:#18181b;color:#fff;">
+      Walter Dog's Hub needs JavaScript enabled to work. Please turn it on and refresh.
+    </div>
+  </noscript>
 
   <!-- STARS BACKGROUND (peak) -->
-  <div id="stars" class="star-layer"></div>
-  <div id="stars2" class="star-layer"></div>
-  <div id="stars3" class="star-layer"></div>
+  <div id="stars" class="star-layer" aria-hidden="true"></div>
+  <div id="stars2" class="star-layer" aria-hidden="true"></div>
+  <div id="stars3" class="star-layer" aria-hidden="true"></div>
 
   <!-- HIDDEN SIDEBAR -->
-  <div id="sidebar" style="display: none;"></div>
+  <div id="sidebar" style="display: none;" aria-hidden="true"></div>
 
   <!-- MAIN WRAPPER -->
-  <div class="main-content">
+  <main class="main-content" id="mainContent" tabindex="-1">
 
     <!-- HOME TAB -->
     <section class="home-section" id="homeSection">
       <h1 class="site-title">Walter Dog's Hub</h1>
 
       <!-- TYPEWRITER TEXT -->
-      <div class="typewriter-box">
+      <div class="typewriter-box" aria-hidden="true">
         <span id="typewriterText"></span><span class="cursor">&nbsp;</span>
       </div>
 
       <!-- GLASS NAV BAR -->
-      <nav class="glass-nav">
-        <button class="nav-item active" id="navHome" onclick="switchTab('home')">Home</button>
-        <button class="nav-item" id="navGames" onclick="switchTab('games')">Games</button>
-        <button class="nav-item" id="navMovies" onclick="switchTab('movies')">Movies</button>
-        <button class="nav-item" id="navTools" onclick="switchTab('tools')">Tools/Apps</button>
-        <button class="nav-item" id="navCredits" onclick="switchTab('credits')">Credits</button>
-        <button class="nav-item" id="navSettings" onclick="switchTab('settings')">Settings</button>
+      <nav class="glass-nav" aria-label="Primary">
+        <button type="button" class="nav-item active" id="navHome" aria-current="page" onclick="switchTab('home')">Home</button>
+        <button type="button" class="nav-item" id="navGames" onclick="switchTab('games')">Games</button>
+        <button type="button" class="nav-item" id="navMovies" onclick="switchTab('movies')">Movies</button>
+        <button type="button" class="nav-item" id="navTools" onclick="switchTab('tools')">Tools/Apps</button>
+        <button type="button" class="nav-item" id="navCredits" onclick="switchTab('credits')">Credits</button>
+        <button type="button" class="nav-item" id="navSettings" onclick="switchTab('settings')">Settings</button>
       </nav>
 
       <!-- GLASS TIME & DATE BOX -->
@@ -640,29 +734,34 @@
     </section>
 
     <!-- GAMES TAB -->
-    <section class="games-section" id="gamesSection">
-      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
-      <input type="text" placeholder="SEARCH GAMES..." id="searchInput" class="search-input">
-      <button id="lolbutton" class="reload-btn" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js';document.body.appendChild(script);">Click to load if it isn't loading</button>
+    <section class="games-section" id="gamesSection" aria-label="Games">
+      <button type="button" class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+      <input type="text" placeholder="SEARCH GAMES..." id="searchInput" class="search-input" aria-label="Search games" autocomplete="off">
+      <p id="gamesStatus" class="games-status" role="status" aria-live="polite">Loading the games list…</p>
+      <button type="button" id="lolbutton" class="reload-btn" onclick="retryLoadGames()">Click to load if it isn't loading</button>
       <div id="sections-container"></div>
     </section>
 
     <!-- MOVIES TAB -->
-    <section class="movies-section" id="moviesSection">
-      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
-      <div class="movie-counter" id="movieCounter">Loaded Movies: 0</div>
-      <input type="text" placeholder="SEARCH MOVIES..." id="movieSearchInput" class="search-input" oninput="filterMovies()">
+    <section class="movies-section" id="moviesSection" aria-label="Movies">
+      <button type="button" class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+      <div class="movie-counter" id="movieCounter" role="status" aria-live="polite">Loaded Movies: 0</div>
+      <div class="movie-actions">
+        <input type="text" placeholder="SEARCH MOVIES..." id="movieSearchInput" class="search-input" aria-label="Search movies" autocomplete="off" oninput="filterMovies()">
+        <button type="button" class="reload-btn" onclick="openRandomMovie()">Surprise me</button>
+      </div>
+      <p id="movieEmpty" class="empty-results" hidden>No movies match that search. Try something else 🥹</p>
       <div id="movies-container" class="buttons-container"></div>
     </section>
 
     <!-- TOOLS TAB -->
     <section class="tools-section" id="toolsSection">
-      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+      <button type="button" class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
 
       <div class="tools-card">
         <h2 class="tools-title">Tools</h2>
         <div class="tools-grid">
-          <button class="tool-launcher-btn" onclick="openToolModal('aboutBlankModal')">
+          <button type="button" class="tool-launcher-btn" onclick="openToolModal('aboutBlankModal')">
             <span class="tool-icon">🫥</span>
             <span class="tool-name">about:blank opener :)</span>
           </button>
@@ -672,7 +771,7 @@
 
     <!-- CREDITS TAB -->
     <section class="credits-section" id="creditsSection">
-      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+      <button type="button" class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
 
       <div class="credits-card">
         <h2 class="credits-title">Credits</h2>
@@ -723,7 +822,7 @@
 
     <!-- SETTINGS TAB -->
     <section class="settings-section" id="settingsSection">
-      <button class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
+      <button type="button" class="go-home-btn" onclick="switchTab('home')">← Go to Home</button>
 
       <div class="settings-card">
         <h2 class="settings-title">Settings</h2>
@@ -731,63 +830,72 @@
         <!-- CUSTOM CURSOR SETTING -->
         <div class="setting-group">
           <label class="setting-label">Custom Cursor</label>
-          <div class="density-btn-group">
-            <button class="density-btn active" onclick="setCursorStyle('default', this)">Default</button>
-            <button class="density-btn" onclick="setCursorStyle('mcdonald', this)">McDonald Cat</button>
-            <button class="density-btn" onclick="setCursorStyle('hamster', this)">Sad Hamster</button>
+          <div class="density-btn-group" role="group" aria-label="Custom cursor">
+            <button type="button" class="density-btn active" data-cursor="default" onclick="setCursorStyle(this)">Default</button>
+            <button type="button" class="density-btn" data-cursor="mcdonald" onclick="setCursorStyle(this)">McDonald Cat</button>
+            <button type="button" class="density-btn" data-cursor="hamster" onclick="setCursorStyle(this)">Sad Hamster</button>
           </div>
         </div>
 
         <!-- ACCENT COLOR SETTING -->
         <div class="setting-group">
           <label class="setting-label">Accent Color</label>
-          <div class="color-picker-grid" id="accentPickerGrid">
-            <button class="color-swatch active" style="background: #6366f1;" onclick="setAccent('#6366f1', 'rgba(99, 102, 241, 0.35)', this)"></button>
-            <button class="color-swatch" style="background: #ec4899;" onclick="setAccent('#ec4899', 'rgba(236, 72, 153, 0.35)', this)"></button>
-            <button class="color-swatch" style="background: #10b981;" onclick="setAccent('#10b981', 'rgba(16, 185, 129, 0.35)', this)"></button>
-            <button class="color-swatch" style="background: #f59e0b;" onclick="setAccent('#f59e0b', 'rgba(245, 158, 11, 0.35)', this)"></button>
-            <button class="color-swatch" style="background: #8b5cf6;" onclick="setAccent('#8b5cf6', 'rgba(139, 92, 246, 0.35)', this)"></button>
-            <button class="color-swatch" style="background: #06b6d4;" onclick="setAccent('#06b6d4', 'rgba(6, 182, 212, 0.35)', this)"></button>
+          <div class="color-picker-grid" id="accentPickerGrid" role="group" aria-label="Accent color">
+            <button type="button" class="color-swatch active" style="background: #6366f1;" data-accent="#6366f1" onclick="setAccent(this)" aria-label="Indigo accent"></button>
+            <button type="button" class="color-swatch" style="background: #ec4899;" data-accent="#ec4899" onclick="setAccent(this)" aria-label="Pink accent"></button>
+            <button type="button" class="color-swatch" style="background: #10b981;" data-accent="#10b981" onclick="setAccent(this)" aria-label="Emerald accent"></button>
+            <button type="button" class="color-swatch" style="background: #f59e0b;" data-accent="#f59e0b" onclick="setAccent(this)" aria-label="Amber accent"></button>
+            <button type="button" class="color-swatch" style="background: #8b5cf6;" data-accent="#8b5cf6" onclick="setAccent(this)" aria-label="Violet accent"></button>
+            <button type="button" class="color-swatch" style="background: #06b6d4;" data-accent="#06b6d4" onclick="setAccent(this)" aria-label="Cyan accent"></button>
           </div>
         </div>
 
         <!-- BACKGROUND COLOR SETTING -->
         <div class="setting-group">
           <label class="setting-label">Background Style</label>
-          <div class="color-picker-grid" id="bgPickerGrid">
-            <button class="color-swatch active" style="background: #1b2735;" onclick="setBg('radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)', this)"></button>
-            <button class="color-swatch" style="background: #0f172a;" onclick="setBg('#0f172a', this)"></button>
-            <button class="color-swatch" style="background: #18181b;" onclick="setBg('#18181b', this)"></button>
-            <button class="color-swatch" style="background: #2a085c;" onclick="setBg('radial-gradient(ellipse at bottom, #2a085c 0%, #090a0f 100%)', this)"></button>
-            <button class="color-swatch" style="background: #064e3b;" onclick="setBg('radial-gradient(ellipse at bottom, #064e3b 0%, #022c22 100%)', this)"></button>
-            <button class="color-swatch" style="background: #4c0519;" onclick="setBg('radial-gradient(ellipse at bottom, #4c0519 0%, #090a0f 100%)', this)"></button>
+          <div class="color-picker-grid" id="bgPickerGrid" role="group" aria-label="Background style">
+            <button type="button" class="color-swatch active" style="background: #1b2735;" data-bg="radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)" onclick="setBg(this)" aria-label="Deep space"></button>
+            <button type="button" class="color-swatch" style="background: #0f172a;" data-bg="#0f172a" onclick="setBg(this)" aria-label="Slate"></button>
+            <button type="button" class="color-swatch" style="background: #18181b;" data-bg="#18181b" onclick="setBg(this)" aria-label="Zinc"></button>
+            <button type="button" class="color-swatch" style="background: #2a085c;" data-bg="radial-gradient(ellipse at bottom, #2a085c 0%, #090a0f 100%)" onclick="setBg(this)" aria-label="Purple nebula"></button>
+            <button type="button" class="color-swatch" style="background: #064e3b;" data-bg="radial-gradient(ellipse at bottom, #064e3b 0%, #022c22 100%)" onclick="setBg(this)" aria-label="Emerald forest"></button>
+            <button type="button" class="color-swatch" style="background: #4c0519;" data-bg="radial-gradient(ellipse at bottom, #4c0519 0%, #090a0f 100%)" onclick="setBg(this)" aria-label="Crimson"></button>
           </div>
         </div>
 
         <!-- STAR DENSITY SETTING -->
         <div class="setting-group">
           <label class="setting-label">Star Density</label>
-          <div class="density-btn-group">
-            <button class="density-btn" onclick="setStarDensity('low', this)">Low</button>
-            <button class="density-btn" onclick="setStarDensity('medium', this)">Medium</button>
-            <button class="density-btn active" onclick="setStarDensity('high', this)">High</button>
+          <div class="density-btn-group" role="group" aria-label="Star density">
+            <button type="button" class="density-btn" data-density="low" onclick="setStarDensity(this)">Low</button>
+            <button type="button" class="density-btn" data-density="medium" onclick="setStarDensity(this)">Medium</button>
+            <button type="button" class="density-btn active" data-density="high" onclick="setStarDensity(this)">High</button>
+          </div>
+        </div>
+
+        <!-- MOTION SETTING -->
+        <div class="setting-group">
+          <label class="setting-label">Animations</label>
+          <div class="density-btn-group" role="group" aria-label="Animations">
+            <button type="button" class="density-btn active" data-motion="on" onclick="setMotion(this)">On</button>
+            <button type="button" class="density-btn" data-motion="off" onclick="setMotion(this)">Off</button>
           </div>
         </div>
       </div>
     </section>
 
-  </div>
+  </main>
 
   <!-- ABOUT:BLANK OPENER (I stole this from VUS hub -->
-  <div id="aboutBlankModal" class="modal-overlay" onclick="if(event.target === this) closeToolModal('aboutBlankModal')">
+  <div id="aboutBlankModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aboutBlankTitle" onclick="if(event.target === this) closeToolModal('aboutBlankModal')">
     <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeToolModal('aboutBlankModal')">&times;</button>
-      <h2 class="tools-title">about:blank Launcher</h2>
+      <button type="button" class="modal-close-btn" aria-label="Close dialog" onclick="closeToolModal('aboutBlankModal')">&times;</button>
+      <h2 class="tools-title" id="aboutBlankTitle">about:blank Launcher</h2>
 
       <div class="setting-group">
         <label class="setting-label" for="urlInput">Embed a URL / Web Proxy:</label>
         <input type="text" id="urlInput" class="tool-input" placeholder="https://example.com">
-        <button class="tool-btn" onclick="openUrl()">Open URL in about:blank</button>
+        <button type="button" class="tool-btn" onclick="openUrl()">Open URL in about:blank</button>
       </div>
 
       <div class="tool-divider"></div>
@@ -795,7 +903,7 @@
       <div class="setting-group">
         <label class="setting-label" for="fileInput">Upload &amp; Open Local File:</label>
         <input type="file" id="fileInput" class="tool-file-input" accept=".html,.htm,.pdf,.png,.jpg,.txt">
-        <button class="tool-btn" onclick="openFile()">Open File in about:blank</button>
+        <button type="button" class="tool-btn" onclick="openFile()">Open File in about:blank</button>
       </div>
     </div>
   </div>
@@ -835,121 +943,277 @@
       
     ];
 
+    /* --- SMALL SAFETY WRAPPERS ---------------------------------------
+       The Launcher injects this file into an about:blank window, where
+       localStorage and history are blocked. Everything optional goes
+       through these helpers so the hub never hard-crashes.            */
+    const SETTINGS_KEY = 'walterDogHub.settings.v1';
+
+    function storageGet(key) {
+      try { return window.localStorage.getItem(key); } catch (e) { return null; }
+    }
+
+    function storageSet(key, value) {
+      try { window.localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+    }
+
+    function canTouchUrl() {
+      return window.location.protocol === 'http:' || window.location.protocol === 'https:';
+    }
+
+    function prefersReducedMotion() {
+      if (document.body.classList.contains('no-motion')) return true;
+      try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+    }
+
+    function openPopup(url) {
+      const win = window.open(url, '_blank');
+      if (!win) {
+        alert('Pop-up blocked! Boi, allow pop-ups for this site NOW.');
+        return null;
+      }
+      try { win.opener = null; } catch (e) { /* ignore */ }
+      return win;
+    }
+
+    /* --- MOVIES --- */
+    let currentMovies = moviesList.slice();
+
     function renderMovies(list) {
       const container = document.getElementById('movies-container');
       const counter = document.getElementById('movieCounter');
+      const empty = document.getElementById('movieEmpty');
+      currentMovies = list;
       container.innerHTML = '';
-      counter.textContent = 'Loaded Movies: ' + list.length;
+      counter.textContent = 'Loaded Movies: ' + list.length + ' / ' + moviesList.length;
+      if (empty) empty.hidden = list.length !== 0;
 
       list.forEach(movie => {
-        const btn = document.createElement('input');
+        const btn = document.createElement('button');
         btn.type = 'button';
-        btn.value = movie.title;
+        btn.textContent = movie.title;
         btn.className = 'movie-btn';
-        btn.onclick = () => window.open(movie.url, '_blank');
+        btn.onclick = () => openPopup(movie.url);
         container.appendChild(btn);
       });
     }
 
     function filterMovies() {
-      const q = document.getElementById('movieSearchInput').value.toLowerCase();
+      const input = document.getElementById('movieSearchInput');
+      const q = (input ? input.value : '').toLowerCase().trim();
       const filtered = moviesList.filter(m => m.title.toLowerCase().includes(q));
       renderMovies(filtered);
     }
 
-    function switchTab(tab) {
-      const homeSec = document.getElementById('homeSection');
-      const gamesSec = document.getElementById('gamesSection');
-      const moviesSec = document.getElementById('moviesSection');
-      const toolsSec = document.getElementById('toolsSection');
-      const creditsSec = document.getElementById('creditsSection');
-      const settingsSec = document.getElementById('settingsSection');
+    function openRandomMovie() {
+      const pool = currentMovies.length ? currentMovies : moviesList;
+      const movie = pool[Math.floor(Math.random() * pool.length)];
+      if (movie) openPopup(movie.url);
+    }
 
-      const navHome = document.getElementById('navHome');
-      const navGames = document.getElementById('navGames');
-      const navMovies = document.getElementById('navMovies');
-      const navTools = document.getElementById('navTools');
-      const navCredits = document.getElementById('navCredits');
-      const navSettings = document.getElementById('navSettings');
+    /* --- TAB ROUTING (with #hash support) --- */
+    let activeTab = 'home';
 
-      homeSec.style.display = tab === 'home' ? 'flex' : 'none';
-      gamesSec.style.display = tab === 'games' ? 'flex' : 'none';
-      moviesSec.style.display = tab === 'movies' ? 'flex' : 'none';
-      toolsSec.style.display = tab === 'tools' ? 'flex' : 'none';
-      creditsSec.style.display = tab === 'credits' ? 'flex' : 'none';
-      settingsSec.style.display = tab === 'settings' ? 'flex' : 'none';
+    const TABS = {
+      home:     { section: 'homeSection',     nav: 'navHome' },
+      games:    { section: 'gamesSection',    nav: 'navGames' },
+      movies:   { section: 'moviesSection',   nav: 'navMovies' },
+      tools:    { section: 'toolsSection',    nav: 'navTools' },
+      credits:  { section: 'creditsSection',  nav: 'navCredits' },
+      settings: { section: 'settingsSection', nav: 'navSettings' }
+    };
 
-      navHome.classList.toggle('active', tab === 'home');
-      navGames.classList.toggle('active', tab === 'games');
-      navMovies.classList.toggle('active', tab === 'movies');
-      if (navTools) navTools.classList.toggle('active', tab === 'tools');
-      navCredits.classList.toggle('active', tab === 'credits');
-      navSettings.classList.toggle('active', tab === 'settings');
+    function switchTab(tab, opts) {
+      if (!Object.prototype.hasOwnProperty.call(TABS, tab)) tab = 'home';
+      const options = opts || {};
+      activeTab = tab;
 
-      if (tab === 'movies') {
-        renderMovies(moviesList);
+      Object.keys(TABS).forEach(key => {
+        const def = TABS[key];
+        const isActive = key === tab;
+        const section = document.getElementById(def.section);
+        const nav = document.getElementById(def.nav);
+
+        if (section) section.style.display = isActive ? 'flex' : 'none';
+        if (nav) {
+          nav.classList.toggle('active', isActive);
+          if (isActive) nav.setAttribute('aria-current', 'page');
+          else nav.removeAttribute('aria-current');
+        }
+      });
+
+      if (tab === 'movies') filterMovies();
+
+      if (options.updateHash !== false && canTouchUrl()) {
+        try {
+          const desiredHash = tab === 'home' ? '' : '#' + tab;
+          if (window.location.hash !== desiredHash) {
+            const fallback = window.location.pathname + window.location.search;
+            window.history.pushState(null, '', desiredHash || fallback);
+          }
+        } catch (e) { /* ignore */ }
       }
+
+      try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
+    }
+
+    function syncTabFromHash() {
+      const tab = (window.location.hash || '').replace('#', '');
+      if (Object.prototype.hasOwnProperty.call(TABS, tab)) {
+        switchTab(tab, { updateHash: false });
+      }
+    }
+
+    /* --- GAMES LOADER STATUS --- */
+    function setGamesStatus(message, isError) {
+      const el = document.getElementById('gamesStatus');
+      if (!el) return;
+      el.textContent = message || '';
+      el.classList.toggle('error', !!isError);
+    }
+
+    function onGamesScriptLoaded() {
+      const container = document.getElementById('sections-container');
+      const count = container ? container.querySelectorAll('input[type="button"]').length : 0;
+      if (count > 0) {
+        setGamesStatus(count.toLocaleString('en-US') + ' games ready. Have fun 🥹');
+      } else {
+        onGamesScriptFailed();
+      }
+    }
+
+    function onGamesScriptFailed() {
+      setGamesStatus("Couldn't fetch the games list. Check your connection, then use the button below.", true);
+    }
+
+    function retryLoadGames() {
+      setGamesStatus('Loading games…');
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js?t=' + Date.now();
+      script.onload = onGamesScriptLoaded;
+      script.onerror = onGamesScriptFailed;
+      document.body.appendChild(script);
+    }
+
+    /* --- SETTINGS: PERSISTENCE + APPLY --- */
+    const appSettings = {
+      cursor: 'default',
+      accent: '#6366f1',
+      bg: 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)',
+      stars: 'high',
+      motion: 'on'
+    };
+
+    function loadSettings() {
+      try {
+        const raw = storageGet(SETTINGS_KEY);
+        if (raw) Object.assign(appSettings, JSON.parse(raw));
+      } catch (e) { /* corrupted storage - fall back to defaults */ }
+    }
+
+    function saveSettings() {
+      storageSet(SETTINGS_KEY, JSON.stringify(appSettings));
+    }
+
+    function findByAttr(attr, value) {
+      const nodes = document.querySelectorAll('[' + attr + ']');
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].getAttribute(attr) === value) return nodes[i];
+      }
+      return null;
+    }
+
+    function markActive(container, attr, value) {
+      if (!container) return;
+      container.querySelectorAll('[' + attr + ']').forEach(node => {
+        node.classList.toggle('active', node.getAttribute(attr) === value);
+      });
+    }
+
+    function hexToGlow(hex) {
+      const match = /^#([0-9a-f]{6})$/i.exec(hex || '');
+      if (!match) return 'rgba(99, 102, 241, 0.35)';
+      const num = parseInt(match[1], 16);
+      return 'rgba(' + ((num >> 16) & 255) + ', ' + ((num >> 8) & 255) + ', ' + (num & 255) + ', 0.35)';
     }
 
     /* --- CURSOR SETTING FUNCTION --- */
-   function setCursorStyle(type, el) {
-      document.body.classList.forEach(className => {
-        if (className.endsWith('-cursor')) {
-          document.body.classList.remove(className);
-        }     
-     });
-     
-      
-      if (type === 'mcdonald') {
-        document.body.classList.add('mcdonald-cursor');
-      } else if (type === 'hamster') {  
-        document.body.classList.add('hamster-cursor');
-      }
-        
+    function setCursorStyle(el) {
+      const type = el.getAttribute('data-cursor') || 'default';
+      document.body.classList.remove('mcdonald-cursor', 'hamster-cursor');
+      if (type === 'mcdonald') document.body.classList.add('mcdonald-cursor');
+      if (type === 'hamster') document.body.classList.add('hamster-cursor');
 
-      if (el && el.parentElement) {
-    el.parentElement.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
-    el.classList.add('active');
+      markActive(el.parentElement, 'data-cursor', type);
+      appSettings.cursor = type;
+      saveSettings();
     }
-  }
 
-    function setAccent(color, glow, el) {
+    function setAccent(el) {
+      const color = el.getAttribute('data-accent');
+      if (!color) return;
+
       document.documentElement.style.setProperty('--accent-color', color);
-      document.documentElement.style.setProperty('--accent-glow', glow);
-      
-      document.querySelectorAll('#accentPickerGrid .color-swatch').forEach(btn => btn.classList.remove('active'));
-      if (el) el.classList.add('active');
+      document.documentElement.style.setProperty('--accent-glow', hexToGlow(color));
+
+      markActive(document.getElementById('accentPickerGrid'), 'data-accent', color);
+      appSettings.accent = color;
+      saveSettings();
     }
 
-    function setBg(bg, el) {
+    function setBg(el) {
+      const bg = el.getAttribute('data-bg');
+      if (!bg) return;
+
       document.documentElement.style.setProperty('--bg-gradient', bg);
 
-      document.querySelectorAll('#bgPickerGrid .color-swatch').forEach(btn => btn.classList.remove('active'));
-      if (el) el.classList.add('active');
+      markActive(document.getElementById('bgPickerGrid'), 'data-bg', bg);
+      appSettings.bg = bg;
+      saveSettings();
     }
 
-    function setStarDensity(level, el) {
+    function setStarDensity(el) {
+      const level = el.getAttribute('data-density');
+      if (!level) return;
+
       const s1 = document.getElementById('stars');
       const s2 = document.getElementById('stars2');
       const s3 = document.getElementById('stars3');
+      const visible = level === 'low' ? 1 : level === 'medium' ? 2 : 3;
 
-      if (level === 'low') {
-        s1.style.opacity = '1';
-        s2.style.opacity = '0';
-        s3.style.opacity = '0';
-      } else if (level === 'medium') {
-        s1.style.opacity = '1';
-        s2.style.opacity = '1';
-        s3.style.opacity = '0';
-      } else if (level === 'high') {
-        s1.style.opacity = '1';
-        s2.style.opacity = '1';
-        s3.style.opacity = '1';
-      }
+      if (s1) s1.style.opacity = visible >= 1 ? '1' : '0';
+      if (s2) s2.style.opacity = visible >= 2 ? '1' : '0';
+      if (s3) s3.style.opacity = visible >= 3 ? '1' : '0';
 
-      const group = el.parentElement;
-      group.querySelectorAll('.density-btn').forEach(btn => btn.classList.remove('active'));
-      if (el) el.classList.add('active');
+      markActive(el.parentElement, 'data-density', level);
+      appSettings.stars = level;
+      saveSettings();
+    }
+
+    function setMotion(el) {
+      const enabled = el.getAttribute('data-motion') === 'on';
+      document.body.classList.toggle('no-motion', !enabled);
+
+      markActive(el.parentElement, 'data-motion', enabled ? 'on' : 'off');
+      appSettings.motion = enabled ? 'on' : 'off';
+      saveSettings();
+
+      if (enabled) restartTypewriter();
+      else stopTypewriter(true);
+    }
+
+    function applySettings() {
+      const cursorBtn = findByAttr('data-cursor', appSettings.cursor);
+      const accentBtn = findByAttr('data-accent', appSettings.accent);
+      const bgBtn = findByAttr('data-bg', appSettings.bg);
+      const starBtn = findByAttr('data-density', appSettings.stars);
+      const motionBtn = findByAttr('data-motion', appSettings.motion);
+
+      if (cursorBtn) setCursorStyle(cursorBtn);
+      if (accentBtn) setAccent(accentBtn);
+      if (bgBtn) setBg(bgBtn);
+      if (starBtn) setStarDensity(starBtn);
+      if (motionBtn) setMotion(motionBtn);
     }
 
     function updateClock() {
@@ -987,9 +1251,19 @@
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
+    let typewriterTimer = null;
 
     function handleTypewriter() {
       const textEl = document.getElementById('typewriterText');
+      if (!textEl) return;
+
+      // Respect reduced-motion: show the first phrase and stop the loop.
+      if (prefersReducedMotion()) {
+        textEl.textContent = phrases[0];
+        typewriterTimer = null;
+        return;
+      }
+
       const currentPhrase = phrases[phraseIndex];
 
       if (!isDeleting) {
@@ -998,7 +1272,7 @@
 
         if (charIndex === currentPhrase.length) {
           isDeleting = true;
-          setTimeout(handleTypewriter, 3000);
+          typewriterTimer = setTimeout(handleTypewriter, 3000);
           return;
         }
       } else {
@@ -1011,109 +1285,254 @@
         }
       }
 
-      const speed = isDeleting ? 40 : 80;
-      setTimeout(handleTypewriter, speed);
+      typewriterTimer = setTimeout(handleTypewriter, isDeleting ? 40 : 80);
     }
 
-    handleTypewriter();
+    function startTypewriter() {
+      if (typewriterTimer) return;
+      handleTypewriter();
+    }
 
-    /* --- TOOL MODAL FUNCTIONS --- */
+    function stopTypewriter(showStatic) {
+      if (typewriterTimer) {
+        clearTimeout(typewriterTimer);
+        typewriterTimer = null;
+      }
+      if (showStatic) {
+        const textEl = document.getElementById('typewriterText');
+        if (textEl) textEl.textContent = phrases[0];
+      }
+    }
+
+    function restartTypewriter() {
+      stopTypewriter(false);
+      phraseIndex = 0;
+      charIndex = 0;
+      isDeleting = false;
+      handleTypewriter();
+    }
+
+    /* --- TOOL MODAL FUNCTIONS (focus managed + Escape closes) --- */
+    let openModalId = null;
+    let modalReturnFocus = null;
+
     function openToolModal(id) {
-      document.getElementById(id).style.display = 'flex';
+      const modal = document.getElementById(id);
+      if (!modal) return;
+
+      modalReturnFocus = document.activeElement;
+      openModalId = id;
+      modal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+
+      const main = document.getElementById('mainContent');
+      if (main) main.setAttribute('aria-hidden', 'true');
+
+      const focusTarget = modal.querySelector('input, button');
+      if (focusTarget) focusTarget.focus();
     }
 
     function closeToolModal(id) {
-      document.getElementById(id).style.display = 'none';
+      const modal = document.getElementById(id || openModalId);
+      if (!modal) return;
+
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      openModalId = null;
+
+      const main = document.getElementById('mainContent');
+      if (main) main.removeAttribute('aria-hidden');
+
+      if (modalReturnFocus && document.contains(modalReturnFocus)) {
+        modalReturnFocus.focus();
+      }
+      modalReturnFocus = null;
+    }
+
+    function trapModalFocus(event) {
+      const modal = openModalId ? document.getElementById(openModalId) : null;
+      if (!modal) return;
+
+      const focusables = modal.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
 
     /* --- ABOUT:BLANK LAUNCHER FUNCTIONS --- */
+    const BLANK_SHELL =
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>View Document</title>' +
+      '<style>html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#090a0f;}' +
+      'iframe{width:100%;height:100%;border:0;}</style></head><body></body></html>';
+
+    function openBlankShell(title) {
+      const win = window.open('about:blank', '_blank');
+      if (!win) {
+        alert('Pop-up blocked! Boi, allow pop-ups for this site NOW.');
+        return null;
+      }
+      try { win.opener = null; } catch (e) { /* ignore */ }
+      win.document.open();
+      win.document.write(BLANK_SHELL);
+      win.document.close();
+      if (title) win.document.title = title;
+      return win;
+    }
+
     function openUrl() {
-      let url = document.getElementById('urlInput').value.trim();
+      const input = document.getElementById('urlInput');
+      let url = input ? input.value.trim() : '';
       if (!url) {
         alert('Please enter a URL.');
         return;
       }
 
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      if (!/^https?:\/\//i.test(url)) {
         url = 'https://' + url;
       }
 
-      const win = window.open('about:blank', '_blank');
-      if (!win) {
-        alert('Pop-up blocked! Boi, allow pop-ups for this site NOW.');
-        return;
-      }
+      const win = openBlankShell('View Document');
+      if (!win) return;
 
-      win.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>View Document</title>
-          <style>
-            html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-            iframe { width: 100%; height: 100%; border: none; }
-          </style>
-        </head>
-        <body>
-          <iframe src="${url}"></iframe>
-        </body>
-        </html>
-      `);
-      win.document.close();
+      // Build the iframe through the DOM so the URL is never string-interpolated.
+      const frame = win.document.createElement('iframe');
+      frame.src = url;
+      frame.title = 'Embedded page';
+      win.document.body.appendChild(frame);
     }
 
     function openFile() {
       const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
+      const file = fileInput ? fileInput.files[0] : null;
 
       if (!file) {
         alert('Please select a file first.');
         return;
       }
 
-      const reader = new FileReader();
+      const isHtml = file.type === 'text/html' || /\.html?$/i.test(file.name);
 
-      reader.onload = function(e) {
-        const win = window.open('about:blank', '_blank');
-        if (!win) {
-          alert('Pop-up blocked! Boi, allow pop-ups for this site.');
-          return;
-        }
-
-        if (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
-          const textReader = new FileReader();
-          textReader.onload = function(evt) {
-            win.document.open();
-            win.document.write(evt.target.result);
-            win.document.close();
-          };
-          textReader.readAsText(file);
-        } else {
-          win.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <title>${file.name}</title>
-              <style>
-                html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-                iframe { width: 100%; height: 100%; border: none; }
-              </style>
-            </head>
-            <body>
-              <iframe src="${e.target.result}"></iframe>
-            </body>
-            </html>
-          `);
+      if (isHtml) {
+        const textReader = new FileReader();
+        textReader.onload = function (evt) {
+          const win = openBlankShell(file.name);
+          if (!win) return;
+          win.document.open();
+          win.document.write(evt.target.result);
           win.document.close();
-        }
-      };
+        };
+        textReader.onerror = function () { alert('Could not read that file.'); };
+        textReader.readAsText(file);
+        return;
+      }
 
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const win = openBlankShell(file.name);
+        if (!win) return;
+        const frame = win.document.createElement('iframe');
+        frame.src = e.target.result;
+        frame.title = file.name;
+        win.document.body.appendChild(frame);
+      };
+      reader.onerror = function () { alert('Could not read that file.'); };
       reader.readAsDataURL(file);
     }
+
+    /* --- KEYBOARD SHORTCUTS --- */
+    function isTypingTarget(el) {
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+    }
+
+    const SEARCH_BOXES = { games: 'searchInput', movies: 'movieSearchInput' };
+
+    function focusActiveSearch() {
+      const id = SEARCH_BOXES[activeTab];
+      const input = id ? document.getElementById(id) : null;
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    }
+
+    function handleKeydown(event) {
+      if (openModalId) {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeToolModal(openModalId);
+          return;
+        }
+        if (event.key === 'Tab') {
+          trapModalFocus(event);
+          return;
+        }
+      }
+
+      if (isTypingTarget(event.target)) return;
+
+      if (event.key === '/') {
+        event.preventDefault();
+        focusActiveSearch();
+        return;
+      }
+
+      if (event.altKey && !event.ctrlKey && !event.metaKey && /^[1-6]$/.test(event.key)) {
+        const names = Object.keys(TABS);
+        event.preventDefault();
+        switchTab(names[Number(event.key) - 1]);
+      }
+    }
+
+    /* --- INIT --- */
+    function init() {
+      loadSettings();
+      applySettings();
+      startTypewriter();
+
+      const urlInput = document.getElementById('urlInput');
+      if (urlInput) {
+        urlInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); openUrl(); }
+        });
+      }
+
+      document.addEventListener('keydown', handleKeydown);
+      window.addEventListener('hashchange', syncTabFromHash);
+      window.addEventListener('popstate', syncTabFromHash);
+
+      syncTabFromHash();
+
+      // If the external games list never arrives, tell the user instead of
+      // leaving an empty section with no explanation.
+      window.addEventListener('load', function () {
+        window.setTimeout(function () {
+          const btn = document.getElementById('lolbutton');
+          const container = document.getElementById('sections-container');
+          if (btn && container && !container.children.length) {
+            onGamesScriptFailed();
+          }
+        }, 4000);
+      });
+    }
+
+    init();
   </script>
 
   <!-- EXTERNAL SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/iforkeverythingisee/Walter-Dog-Hub@main/Reference/Gamefile"></script>
+  <script src="https://cdn.jsdelivr.net/gh/iforkeverythingisee/Walter-Dog-Hub@main/Reference/Gamefile" onload="onGamesScriptLoaded()" onerror="onGamesScriptFailed()"></script>
 </body>
 </html>

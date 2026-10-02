@@ -1,0 +1,37 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Lint HTML + inline JS + smoke test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install tooling
+        run: npm ci
+
+      - name: Validate HTML
+        run: npm run lint
+
+      - name: Syntax-check inline JavaScript
+        run: npm run check:js
+
+      - name: Run smoke tests
+        run: npm test

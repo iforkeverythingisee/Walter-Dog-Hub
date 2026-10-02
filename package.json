@@ -1,0 +1,29 @@
+{
+  "name": "walter-dog-hub",
+  "version": "1.0.0",
+  "description": "Walter Dog's Hub - a single-file hub for games, movies, tools and good vibes.",
+  "private": true,
+  "scripts": {
+    "lint": "html-validate Hub.html Launcher",
+    "check:js": "node scripts/check-inline-js.mjs Hub.html Launcher",
+    "test": "node scripts/smoke-test.mjs Hub.html",
+    "verify": "npm run lint && npm run check:js && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iforkeverythingisee/Walter-Dog-Hub.git"
+  },
+  "author": "Walter Dog",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "bugs": {
+    "url": "https://github.com/iforkeverythingisee/Walter-Dog-Hub/issues"
+  },
+  "homepage": "https://github.com/iforkeverythingisee/Walter-Dog-Hub#readme",
+  "devDependencies": {
+    "html-validate": "^9.7.1",
+    "jsdom": "^30.1.1"
+  }
+}
