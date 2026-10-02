@@ -44,15 +44,7 @@ Open [`Launcher`](Launcher), click **Open**, and the hub pops up in a clean
 `about:blank` tab. Copy the launcher's code into w3Schools, Google Sites or
 CodeBeautify and it works from there too.
 
-### 2. Open the hub directly
-
-Open [`Hub.html`](Hub.html) in a browser, or grab it from the raw URL:
-
-```
-https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/refs/heads/main/Hub.html
-```
-
-### 3. Host it yourself
+### 2. Host it yourself
 
 Fork the repo and turn on **GitHub Pages** (`Settings → Pages → Deploy from a
 branch → main`). The whole site is `Hub.html`.
