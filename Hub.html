@@ -242,7 +242,7 @@
       border-color: var(--accent-color);
       box-shadow: 0 0 12px var(--accent-glow);
     }
-
+    /* The lion NEVER searches up, he scrolls until he finds it*/
     .search-input {
       width: 100%;
       max-width: 450px;
@@ -612,6 +612,7 @@
     }
 
     /* --- ACCESSIBILITY: KEYBOARD FOCUS --- */
+    /* Who Added This? */
     :focus-visible {
       outline: 2px solid var(--accent-color);
       outline-offset: 3px;
@@ -751,7 +752,7 @@
         <input type="text" placeholder="SEARCH MOVIES..." id="movieSearchInput" class="search-input" aria-label="Search movies" autocomplete="off" oninput="filterMovies()">
         <button type="button" class="reload-btn" onclick="openRandomMovie()">Surprise me</button>
       </div>
-      <p id="movieEmpty" class="empty-results" hidden>No movies match that search. Try something else 🥹</p>
+      <p id="movieEmpty" class="empty-results" hidden>No movies match that search. Try something else (Or do ur homework) 🥹</p>
       <div id="movies-container" class="buttons-container"></div>
     </section>
 
@@ -762,6 +763,7 @@
       <div class="tools-card">
         <h2 class="tools-title">Tools</h2>
         <div class="tools-grid">
+           <!-- Ill add gn math here (REMEBER ME) -->
           <button type="button" class="tool-launcher-btn" onclick="openToolModal('aboutBlankModal')">
             <span class="tool-icon">🫥</span>
             <span class="tool-name">about:blank opener :)</span>
