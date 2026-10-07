@@ -1,6 +1,6 @@
 {
   "name": "walter-dog-hub",
-  "version": "5.175",
+  "version": "5.181",
   "description": "Walter Dog's Hub - a single-file hub for games, movies, tools and good vibes.",
   "private": true,
   "scripts": {
