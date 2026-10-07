@@ -1151,9 +1151,11 @@
     /* --- CURSOR SETTING FUNCTION --- */
     function setCursorStyle(el) {
       const type = el.getAttribute('data-cursor') || 'default';
-      document.body.classList.remove('mcdonald-cursor', 'hamster-cursor');
+      document.body.classList.remove('mcdonald-cursor', 'hamster-cursor', 'capybara-cursor');
       if (type === 'mcdonald') document.body.classList.add('mcdonald-cursor');
       if (type === 'hamster') document.body.classList.add('hamster-cursor');
+      if (type === 'capybara') document.body.classList.add('capybara-cursor');
+
 
       markActive(el.parentElement, 'data-cursor', type);
       appSettings.cursor = type;
