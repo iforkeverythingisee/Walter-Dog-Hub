@@ -1,5 +1,5 @@
 async function openNoahTutoring() {
-  const fileUrl = "https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noah%27s-tutoring.html";
+  const fileUrl = "https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noahs-tutoring.html";
 
   try {
     const response = await fetch(fileUrl);
