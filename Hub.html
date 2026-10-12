@@ -774,8 +774,8 @@
           <button type="button" class="tool-launcher-btn" onclick="openToolModal('aboutBlankModal')">
             <span class="tool-icon">🫥</span>
             <span class="tool-name">about:blank opener :)</span>
-          </button
-           <button type="button" class="tool-launcher-btn" onclick="openNoahTutoring()">
+          </button>
+           <button type="button" class="tool-launcher-btn" onclick="window.open('https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noahs-tutoring.html', '_blank')">
             <span class="tool-icon">🟧</span>
             <span class="tool-name">Noah's Tutoring</span>
           </button>
@@ -962,7 +962,7 @@
     /* --- SMALL SAFETY WRAPPERS ---------------------------------------
        The Launcher injects this file into an about:blank window, where
        localStorage and history are blocked. Everything optional goes
-       through these helpers so the hub never hard-crashes. also u know what else is hard *<*     */
+       through these helpers so the hub never hard-crashes.            */
     const SETTINGS_KEY = 'walterDogHub.settings.v1';
 
     function storageGet(key) {
@@ -1552,7 +1552,5 @@
   <!-- EXTERNAL SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/iforkeverythingisee/Walter-Dog-Hub@main/Reference/Gamefile" onload="onGamesScriptLoaded()" onerror="onGamesScriptFailed()"></script>
-  <script>
-</script>
 </body>
 </html>
