@@ -775,7 +775,7 @@
             <span class="tool-icon">🫥</span>
             <span class="tool-name">about:blank opener :)</span>
           </button
-           <button type="button" class="tool-launcher-btn" onclick="window.open('https://raw.githack.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noahs-tutoring.html', '_blank')">
+           <button type="button" class="tool-launcher-btn" onclick="openNoahTutoring()">
             <span class="tool-icon">🟧</span>
             <span class="tool-name">Noah's Tutoring</span>
           </button>
@@ -1552,5 +1552,33 @@
   <!-- EXTERNAL SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/iforkeverythingisee/Walter-Dog-Hub@main/Reference/Gamefile" onload="onGamesScriptLoaded()" onerror="onGamesScriptFailed()"></script>
+  <script>
+async function openNoahTutoring() {
+  const fileUrl = "https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noah%27s-tutoring.html";
+
+  try {
+    const response = await fetch(fileUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const htmlContent = await response.text();
+
+    // Open a blank new tab
+    const newWindow = window.open("", "_blank");
+
+    if (newWindow) {
+      // Write the HTML code directly into the new tab so the browser renders it
+      newWindow.document.open();
+      newWindow.document.write(htmlContent);
+      newWindow.document.close();
+    } else {
+      alert("Pop-up blocked. Please allow pop-ups for this page.");
+    }
+  } catch (error) {
+    console.error("Error loading app:", error);
+    alert("Failed to load the app. im sory.");
+  }
+}
+</script>
 </body>
 </html>
