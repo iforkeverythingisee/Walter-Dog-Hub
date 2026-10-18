@@ -1,7 +1,7 @@
 {
   "name": "walter-dog-hub",
-  "version": "5.181",
-  "description": "Walter Dog's Hub - a single-file hub for games, movies, tools and good vibes.",
+  "version": "5.193",
+  "description": "Walter Dog's Hub - Single file Cungadero",
   "private": true,
   "scripts": {
     "lint": "html-validate Hub.html Launcher",
