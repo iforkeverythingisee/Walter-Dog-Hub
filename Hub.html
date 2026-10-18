@@ -775,10 +775,9 @@
             <span class="tool-icon">🫥</span>
             <span class="tool-name">about:blank opener :)</span>
           </button>
-          <a href="https://htmlpreview.github.io/?https://github.com/iforkeverythingisee/Walter-Dog-Hub/blob/main/Reference/noahs-tutoring.html" target="_blank" class="tool-launcher-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+          <button type="button" class="tool-launcher-btn" onclick="executeInNewTab()">
               <span class="tool-icon">🟧</span>
-              <span class="tool-name">Noah's Tutoring</span>
-         </a>      
+              <span class="tool-name">Noah's Tutoring</span>     
         </button>
         </div>
       </div>
@@ -1549,6 +1548,36 @@
 
     init();
   </script>
+  <script>
+async function executeInNewTab() {
+  // 1. Open new tab immediately (prevents popup blocker)
+  const newTab = window.open('', '_blank');
+  
+  // Display a temporary loading state in the new tab
+  if (newTab) {
+    newTab.document.write('<p style="font-family:sans-serif; padding:20px; color:#fff; background:#090a0f;">Loading Noah\'s Tutoring...</p>');
+  }
+
+  try {
+    // 2. Fetch the raw HTML content directly from the GitHub repository
+    const rawUrl = 'https://raw.githubusercontent.com/iforkeverythingisee/Walter-Dog-Hub/main/Reference/noahs-tutoring.html';
+    const response = await fetch(rawUrl);
+    const htmlCode = await response.text();
+
+    // 3. Render and execute the fetched HTML code in the new tab
+    if (newTab) {
+      newTab.document.open();
+      newTab.document.write(htmlCode);
+      newTab.document.close();
+    }
+  } catch (error) {
+    console.error('Failed to load HTML code:', error);
+    if (newTab) {
+      newTab.document.body.innerHTML = '<p style="color:red; font-family:sans-serif; padding:20px;">Failed to load project.</p>';
+    }
+  }
+}
+</script>
 
   <!-- EXTERNAL SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/searchbut.js"></script>
