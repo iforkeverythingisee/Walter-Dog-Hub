@@ -34,6 +34,7 @@ CI runs the same `npm run verify` on every push and pull request.
 
 - New tools in the **Tools/Apps** tab (keep them self-contained)
 - More accent/background swatches
+- W cursor
 - Accessibility fixes — anything that helps screen-reader or keyboard users
 - Fixing a broken link in the movie or game list
 
