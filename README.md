@@ -30,7 +30,7 @@ ok bye.
 | **Home** | Animated starfield, typewriter greeting, live clock/date |
 | **Games** | The full UGS game list, searchable, grouped A-Z |
 | **Movies** | The movie list, searchable, plus a **Surprise me** button |
-| **Tools/Apps** | An `about:blank` launcher for opening URLs or local files |
+| **Tools/Apps** | An `about:blank` launcher for opening URLs or local files and Noah's Tutoring |
 | **Credits** | Everyone who made this possible |
 | **Settings** | Cursor, accent colour, background, star density, animations |
 
