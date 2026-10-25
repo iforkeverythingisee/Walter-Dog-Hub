@@ -8,7 +8,7 @@ I don't really use this that much, this is for my friends.
 This project is completely FREE and open source but please credit
 https://github.com/iforkeverythingisee if u are using this
 
-Check out the Overview (not made by me) if u want more info
+Check out the [Contribution Guidelines](Overview.md). (not made by me) if u want more info
 
 ok bye.
 
